@@ -147,6 +147,8 @@ class AdmissionEnquireModeController extends Controller
                 'error' => false,
                 'message' => trans('data_delete_successfully')
             ];
+
+            
             // //check wheather the class exists in other table
             // // $class = ClassSchool::where('enquire_id', $id)->count();
             // // $subject = Subject::where('enquire_id', $id)->count();
