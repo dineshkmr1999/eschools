@@ -22,9 +22,7 @@ class ExpensesController extends Controller
             );
             return redirect(route('home'))->withErrors($response);
         }
-
-        $Expenses = Expense::get();
-        return response(view('manage_expense.index', compact('Expenses')));
+        return view('expenses.index');
 
     }
 

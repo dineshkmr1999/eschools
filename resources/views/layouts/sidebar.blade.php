@@ -149,6 +149,13 @@
             </li>
         @endcan
 
+        {{-- expenses --}}
+        @can('manage-expenses')
+            <li class="nav-item">
+                <a href="{{ route('expense.index') }}" class="nav-link"> <span class="menu-title">{{ __('expenses') }}</span> <i class="fa fa-users menu-icon"></i> </a>
+            </li>
+        @endcan
+
         {{-- timetable --}}
         @canany(['timetable-create','class-timetable','teacher-timetable'])
             <li class="nav-item">
