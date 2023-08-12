@@ -173,6 +173,10 @@ class InstallationSeeder extends Seeder
             ['id' => 120, 'name' => 'manage-online-exam'],
             ['id' => 121, 'name' => 'manage-expenses'],
 
+            ['id' => 122, 'name' => 'manage-enquiry-mode-list'],
+            ['id' => 123, 'name' => 'manage-enquiry-mode-create'],
+            ['id' => 124, 'name' => 'manage-enquiry-mode-edit'],
+            ['id' => 125, 'name' => 'manage-enquiry-mode-delete']
         ];
         foreach ($permissions as $permission) {
             Permission::UpdateOrCreate(['id' => $permission['id']], $permission);
@@ -304,7 +308,12 @@ class InstallationSeeder extends Seeder
             'fees-paid',
             'fees-config',
             
-            'manage-expenses'
+            'manage-expenses',
+
+            'manage-enquiry-mode-list',
+            'manage-enquiry-mode-create',
+            'manage-enquiry-mode-edit',
+            'manage-enquiry-mode-delete',
         ];
         $role->syncPermissions($superadmin_permission_list);
        

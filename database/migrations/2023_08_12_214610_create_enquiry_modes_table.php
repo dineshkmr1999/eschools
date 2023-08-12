@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admission_enquire_modes', function (Blueprint $table) {
+        Schema::create('enquiry_modes', function (Blueprint $table) {
             $table->id();
-            $table->string('enquire_mode');
-           
-            $table->timestamps();
+            $table->string('mode_name');
+            $table->boolean('active')->default(true);
             $table->softDeletes();
+            $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admission_enquire_modes');
+        Schema::dropIfExists('enquiry_modes');
     }
 };

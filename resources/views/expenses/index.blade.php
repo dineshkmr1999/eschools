@@ -66,9 +66,9 @@
                                     data-fixed-number="2" data-fixed-right-number="1" data-trim-on-search="false"
                                     data-mobile-responsive="true" data-sort-name="id" data-sort-order="desc"
                                     data-maintain-selected="true" data-export-types='["txt","excel"]'
-                                    data-export-options='{ "name": "teacher-list-<?= date('d-m-y') ?>" ,"ignoreColumn":
+                                    data-export-options='{ "name": "expense-list-<?= date('d-m-y') ?>" ,"ignoreColumn":
                                     ["operate"]}'
-                                    data-query-params="teacherQueryParams">
+                                    data-query-params="expenseQueryParams">
                                     <thead>
                                         <tr>
                                             <th scope="col" data-field="id" data-sortable="true" data-visible="false">
@@ -113,7 +113,6 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type="hidden" name="user_id" id="user_id">
                         <input type="hidden" name="id" id="id">
                         <div class="row form-group">
                             <div class="form-group col-sm-12 col-md-6">
@@ -134,7 +133,7 @@
                             </div>
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('school') }} <span class="text-danger">*</span></label>
-                                {!! Form::text('school', null, ['required', 'placeholder' => __('school'), 'class' => 'form-control', 'id' => 'school']) !!}
+                                {!! Form::number('school_id', null, ['required', 'placeholder' => __('school'), 'class' => 'form-control', 'id' => 'school_id']) !!}
                             </div>
                         </div>
                     </div>

@@ -405,9 +405,8 @@
     "create_expense":"Create Expense",
     "list_expense":"List Expense",
     "edit_expense": "Edit Expense",
-    "":"",
-    "":"",
-    "":"",
+    "enquirymode":"Enquiry Mode",
+    "mode_name":"Mode Name",
     "":"",
     "":""
 }

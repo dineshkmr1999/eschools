@@ -898,38 +898,15 @@ window.classEvents = {
 window.expenseActionEvents = {
     'click .editdata': function(e, value, row, index) {
         $('#id').val(row.id);
-        $('#user_id').val(row.user_id);
-        $('#name').val(row.first_name);
-        $('#cost').val(row.last_name);
-        $('#description').val(row.last_name);
-        $('#school').val(row.last_name);
-        if(row.has_student_permissions){
-            $('.edit_permission_chk').prop("checked",true);
-            $('.edit_permission_chk').addClass('warning_ckh')
-            $(document).on('change','.warning_ckh',function() {
-                if (!this.checked) {
-                    Swal.fire({
-                        title: lang_delete_title,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: lang_yes_uncheck
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $(this).prop("checked",false);
-                        }else{
-                            $(this).prop("checked",true);
-                        }
-                    })
-                }
-            });
-        }else{
-            $('.edit_permission_chk').prop("checked",false);
-            $('.edit_permission_chk').removeClass('warning_ckh')
-        }
+        $('#name').val(row.name);
+        $('#cost').val(row.cost);
+        $('#description').val(row.description);
+        $('#school_id').val(row.school_id);
+
+        // Show the modal
+        $('#editModal').modal('show');
     }
-}
+};
 // Bootstrap Custom Column Formatters
 function fileFormatter(value, row) {
     let file_upload = "<br><h6>File Upload</h6>";
@@ -1499,7 +1476,15 @@ function teacherQueryParams(p) {
         search: p.search
     };
 }
-
+function expenseQueryParams(p) {
+    return {
+        limit: p.limit,
+        sort: p.sort,
+        order: p.order,
+        offset: p.offset,
+        search: p.search
+    };
+}
 function onlineExamResultQueryParams(p) {
     return {
         limit: p.limit,

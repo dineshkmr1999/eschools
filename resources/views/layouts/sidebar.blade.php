@@ -152,9 +152,18 @@
         {{-- expenses --}}
         @can('manage-expenses')
             <li class="nav-item">
-                <a href="{{ route('expense.index') }}" class="nav-link"> <span class="menu-title">{{ __('Expenses') }}</span> <i class="fa fa-users menu-icon"></i> </a>
+                <a href="{{ route('expense.index') }}" class="nav-link"> <span class="menu-title">{{ __('Expenses') }}</span> <i class="fa fa-money menu-icon"></i> </a>
             </li>
         @endcan
+
+        {{-- enquirymode --}}
+        @canany(['manage-enquiry-mode-create','manage-enquiry-mode-list'])
+            <li class="nav-item">
+                @can('manage-enquiry-mode-list')
+                    <a href="{{ route('enquirymode.index') }}" class="nav-link"> <span class="menu-title">{{ __('enquirymode') }}</span> <i class="fa fa-calendar-check-o menu-icon"></i> </a>
+                @endcan
+            </li>
+        @endcanany
 
         {{-- timetable --}}
         @canany(['timetable-create','class-timetable','teacher-timetable'])

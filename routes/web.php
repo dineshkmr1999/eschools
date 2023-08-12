@@ -41,6 +41,7 @@ use App\Http\Controllers\OnlineExamQuestionController;
 use App\Http\Controllers\StudentSessionController;
 use App\Http\Controllers\SubjectTeacherController;
 use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\EnquiryModeController;
 use App\Models\AdmissionEnquireMode;
 
 /*
@@ -274,16 +275,7 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
             return view('teacher.teacher_bulk_data');
         })->name('teacher.create-bulk-data');
         
-           Route::post('teacher/store-bulk', [TeacherController::class, 'import'])->name('teacher.store-bulk-data');
-
-        //admission enquire
-        Route::resource('/admission-enquire', AdmissionEnquireModeController::class);
-        // Route::get('/admission-enquire-get', function () {
-        //     return view('admission_enquire.index');
-        // });
-
-        Route::post('/admission-enquire-store',[App\Http\Controllers\AdmissionEnquireModeController::class,'store'])->name('store-admission-enquire');
-        Route::get('admission-enquire-list', [AdmissionEnquireModeController::class, 'show']);      
+           Route::post('teacher/store-bulk', [TeacherController::class, 'import'])->name('teacher.store-bulk-data');   
         
         // Online Exam
         Route::get('online-exam/terms-conditions',[OnlineExamController::class ,'onlineExamTermsConditionIndex'])->name('online-exam.terms-conditions');
@@ -307,7 +299,11 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         //Expense
         Route::resource('expense', ExpensesController::class);
         Route::get('expense_list', [ExpensesController::class, 'show']);
-
+        
+        //Enquiry Mode
+        Route::resource('enquirymode', EnquiryModeController::class);
+        Route::get('enquirymode-list', [EnquiryModeController::class, 'show']);
+        Route::get('enquirymode-view', [EnquiryModeController::class, 'enquirymode_view']);
 
         Route::get('app-settings', [SettingController::class, 'app_index']);
         Route::post('app-settings', [SettingController::class, 'app_update']);
