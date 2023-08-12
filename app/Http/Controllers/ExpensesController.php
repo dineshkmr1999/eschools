@@ -140,7 +140,7 @@ class ExpensesController extends Controller
         $no = 1;
         foreach ($res as $row) {
             $operate = '<a class="btn btn-xs btn-gradient-primary btn-rounded btn-icon editdata" data-id=' . $row->id . ' data-url=' . url('expense') . ' title="Edit" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;';
-            $operate .= '<a class="btn btn-xs btn-gradient-danger btn-rounded btn-icon deletedata" data-id=' . $row->id . ' data-user_id=' . $row->user_id . ' data-url=' . url('expense', $row->id) . ' title="Delete"><i class="fa fa-trash"></i></a>';
+            $operate .= '<a class="btn btn-xs btn-gradient-danger btn-rounded btn-icon deletedata" data-id=' . $row->id . ' data-id=' . $row->id . ' data-url=' . url('expense', $row->id) . ' title="Delete"><i class="fa fa-trash"></i></a>';
 
             $data = getSettings('date_formate');
 
