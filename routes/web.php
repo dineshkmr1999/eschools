@@ -306,7 +306,9 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         
         //Expense
         Route::resource('expense', ExpensesController::class);
-        
+        Route::get('expense_list', [ExpensesController::class, 'show']);
+
+
         Route::get('app-settings', [SettingController::class, 'app_index']);
         Route::post('app-settings', [SettingController::class, 'app_update']);
         Route::get('system-update', [SystemUpdateController::class, 'index'])->name('system-update.index');

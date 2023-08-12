@@ -152,7 +152,7 @@
         {{-- expenses --}}
         @can('manage-expenses')
             <li class="nav-item">
-                <a href="{{ route('expense.index') }}" class="nav-link"> <span class="menu-title">{{ __('expenses') }}</span> <i class="fa fa-users menu-icon"></i> </a>
+                <a href="{{ route('expense.index') }}" class="nav-link"> <span class="menu-title">{{ __('Expenses') }}</span> <i class="fa fa-users menu-icon"></i> </a>
             </li>
         @endcan
 

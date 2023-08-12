@@ -400,5 +400,14 @@
     "cost_numeric" : "The cost field should be a numeric value.",
     "expense_created_successfully" : "Expense created successfully!",
     "expense_updated_successfully" : "Expense updated successfully!",
-    "expense_deleted_successfully" : "Expense deleted successfully!"
+    "expense_deleted_successfully" : "Expense deleted successfully!",
+    "manage_expenses":"Manage Expense",
+    "create_expense":"Create Expense",
+    "list_expense":"List Expense",
+    "edit_expense": "Edit Expense",
+    "":"",
+    "":"",
+    "":"",
+    "":"",
+    "":""
 }

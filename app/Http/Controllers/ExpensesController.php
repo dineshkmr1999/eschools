@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Expense;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log;
 class ExpensesController extends Controller
 {
     /**
@@ -45,6 +45,7 @@ class ExpensesController extends Controller
      */
     public function store(Request $request)
     {
+        log::info('hi');
         if (!Auth::user()->can('manage-expenses')) {
             $response = array(
                 'message' => trans('no_permission_message')
@@ -95,7 +96,7 @@ class ExpensesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         if (!Auth::user()->can('manage-expenses')) {
             $response = array(
@@ -103,8 +104,60 @@ class ExpensesController extends Controller
             );
             return redirect(route('home'))->withErrors($response);
         }
-        $expensebyid = Expense::where('id',$id)->get();
-        return response()->json($expensebyid);
+        $offset = 0;
+        $limit = 10;
+        $sort = 'id';
+        $order = 'DESC';
+
+        if (isset($_GET['offset']))
+            $offset = $_GET['offset'];
+        if (isset($_GET['limit']))
+            $limit = $_GET['limit'];
+
+        if (isset($_GET['sort']))
+            $sort = $_GET['sort'];
+        if (isset($_GET['order']))
+            $order = $_GET['order'];
+    
+        $sql = Expense::with('user');
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $search = $_GET['search'];
+            $sql->where('id', 'LIKE', "%$search%")
+                ->orwhere('cost', 'LIKE', "%$search%")
+                ->orwhere('name', 'LIKE', "%$search%")
+                ->orwhere('description', 'LIKE', "%$search%")
+                ->orwhere('school_id', 'LIKE', "%$search%");
+        }
+        $total = $sql->count();
+
+        $sql->orderBy($sort, $order)->skip($offset)->take($limit);
+        $res = $sql->get();
+    
+        $bulkData = array();
+        $bulkData['total'] = $total;
+        $rows = array();
+        $tempRow = array();
+        $no = 1;
+        foreach ($res as $row) {
+            $operate = '<a class="btn btn-xs btn-gradient-primary btn-rounded btn-icon editdata" data-id=' . $row->id . ' data-url=' . url('expense') . ' title="Edit" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;';
+            $operate .= '<a class="btn btn-xs btn-gradient-danger btn-rounded btn-icon deletedata" data-id=' . $row->id . ' data-user_id=' . $row->user_id . ' data-url=' . url('expense', $row->id) . ' title="Delete"><i class="fa fa-trash"></i></a>';
+
+            $data = getSettings('date_formate');
+
+            $tempRow['id'] = $row->id;
+            $tempRow['no'] = $no++;
+            $tempRow['user_id'] = $row->user_id;
+            $tempRow['name'] = $row->name;
+            $tempRow['cost'] = $row->cost;
+            $tempRow['description'] = $row->description;
+            $tempRow['school'] = $row->school;
+
+            $tempRow['operate'] = $operate;
+            $rows[] = $tempRow;
+        }
+
+        $bulkData['rows'] = $rows;
+        return response()->json($bulkData);
     }
 
     /**
@@ -113,9 +166,11 @@ class ExpensesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+     public function edit($id)
     {
-        //
+        log::info($id);
+        $expense = Expense::find($id);
+        return response($expense);
     }
 
     /**
@@ -198,9 +253,10 @@ class ExpensesController extends Controller
         }
 
         Expense::where('id', $id)->delete();
-        $response = array(
+        $response = [
             'error' => false,
-            'message' => trans('expense_deleted_successfully')
-        );
+            'message' => trans('data_delete_successfully')
+        ];
+        return response()->json($response);
     }
 }
