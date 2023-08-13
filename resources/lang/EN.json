@@ -407,6 +407,13 @@
     "edit_expense": "Edit Expense",
     "enquirymode":"Enquiry Mode",
     "mode_name":"Mode Name",
-    "":"",
-    "":""
+    "admission_enquire":"Admission Enquiry",
+    "admission":"Admission",
+    "admission_number":"Admission Number",
+    "address":"Address",
+    "added_by":"Added By",  
+    "enquiry_date":"Enquired On",
+    "previous_school":"Previous School",
+    "parent_name":"Parent Or Guardian Name",
+    "class_applying_for":"Class"
 }

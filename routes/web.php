@@ -42,6 +42,7 @@ use App\Http\Controllers\StudentSessionController;
 use App\Http\Controllers\SubjectTeacherController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\EnquiryModeController;
+use App\Http\Controllers\AdmissionEnquiryController;
 use App\Models\AdmissionEnquireMode;
 
 /*
@@ -303,7 +304,11 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         //Enquiry Mode
         Route::resource('enquirymode', EnquiryModeController::class);
         Route::get('enquirymode-list', [EnquiryModeController::class, 'show']);
-        Route::get('enquirymode-view', [EnquiryModeController::class, 'enquirymode_view']);
+
+        //Admission Enquiry
+        Route::resource('admissionenquiry', AdmissionEnquiryController::class);
+        Route::get('admissionenquiry-list', [AdmissionEnquiryController::class, 'show']);
+        Route::get('listenquirymode', [AdmissionEnquiryController::class, 'listenquirymode'])->name('listenquirymode');
 
         Route::get('app-settings', [SettingController::class, 'app_index']);
         Route::post('app-settings', [SettingController::class, 'app_update']);

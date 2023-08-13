@@ -59,13 +59,19 @@
                             <div class="row">
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label>{{ __('mobile') }} <span class="text-danger">*</span></label>
-                                    {!! Form::number('mobile', null, ['required', 'placeholder' => __('mobile'),'min' => 1 , 'class' => 'form-control']) !!}
+                                    {!! Form::number('mobile', null, [
+                                        'required',
+                                        'placeholder' => __('mobile'),
+                                        'min' => 1,
+                                        'class' => 'form-control',
+                                    ]) !!}
 
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
 
                                     <label>{{ __('image') }}</label>
-                                    <input type="file" name="image" class="file-upload-default" accept="image/png,image/jpeg,image/jpg" />
+                                    <input type="file" name="image" class="file-upload-default"
+                                        accept="image/png,image/jpeg,image/jpg" />
                                     <div class="input-group col-xs-12">
                                         <input type="text" class="form-control file-upload-info" disabled=""
                                             placeholder="{{ __('image') }}" />
@@ -79,36 +85,57 @@
                             <div class="row">
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label>{{ __('dob') }} <span class="text-danger">*</span></label>
-                                    {!! Form::text('dob', null, ['required', 'placeholder' => __('dob'), 'class' => 'datepicker-popup-no-future form-control']) !!}
+                                    {!! Form::text('dob', null, [
+                                        'required',
+                                        'placeholder' => __('dob'),
+                                        'class' => 'datepicker-popup-no-future form-control',
+                                    ]) !!}
                                     <span class="input-group-addon input-group-append">
                                     </span>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label>{{ __('qualification') }} <span class="text-danger">*</span></label>
-                                    {!! Form::textarea('qualification', null, ['required', 'placeholder' => __('qualification'), 'class' => 'form-control', 'rows' => 3]) !!}
+                                    {!! Form::textarea('qualification', null, [
+                                        'required',
+                                        'placeholder' => __('qualification'),
+                                        'class' => 'form-control',
+                                        'rows' => 3,
+                                    ]) !!}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label>{{ __('current_address') }} <span class="text-danger">*</span></label>
-                                    {!! Form::textarea('current_address', null, ['required', 'placeholder' => __('current_address'), 'class' => 'form-control', 'rows' => 3]) !!}
+                                    {!! Form::textarea('current_address', null, [
+                                        'required',
+                                        'placeholder' => __('current_address'),
+                                        'class' => 'form-control',
+                                        'rows' => 3,
+                                    ]) !!}
                                 </div>
                                 <div class="form-group col-sm-12 col-md-6">
                                     <label>{{ __('permanent_address') }} <span class="text-danger">*</span></label>
-                                    {!! Form::textarea('permanent_address', null, ['required', 'placeholder' => __('permanent_address'), 'class' => 'form-control', 'rows' => 3]) !!}
+                                    {!! Form::textarea('permanent_address', null, [
+                                        'required',
+                                        'placeholder' => __('permanent_address'),
+                                        'class' => 'form-control',
+                                        'rows' => 3,
+                                    ]) !!}
                                 </div>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                    <input type="checkbox" name="grant_permission" aria-label="Checkbox for following text input" id="gridCheck">
-                                  </div>
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="grant_permission"
+                                            aria-label="Checkbox for following text input" id="gridCheck">
+                                    </div>
                                 </div>
                                 <label class="form-control" for="gridCheck">
-                                    {{__('grant_permission_to_manage_students_parents')}}
+                                    {{ __('grant_permission_to_manage_students_parents') }}
                                 </label>
                             </div>
-                            <div class="form-group text-info" style="font-size: 0.8rem;margin-top: -0.3rem">{{__('note_for_permission_of_student_manage')}}</div>
+                            <div class="form-group text-info" style="font-size: 0.8rem;margin-top: -0.3rem">
+                                {{ __('note_for_permission_of_student_manage') }}</div>
                             <input class="btn btn-theme" type="submit" value={{ __('submit') }}>
                         </form>
                     </div>
@@ -193,12 +220,22 @@
                         <div class="row form-group">
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('first_name') }} <span class="text-danger">*</span></label>
-                                {!! Form::text('first_name', null, ['required', 'placeholder' => __('first_name'), 'class' => 'form-control', 'id' => 'first_name']) !!}
+                                {!! Form::text('first_name', null, [
+                                    'required',
+                                    'placeholder' => __('first_name'),
+                                    'class' => 'form-control',
+                                    'id' => 'first_name',
+                                ]) !!}
 
                             </div>
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('last_name') }} <span class="text-danger">*</span></label>
-                                {!! Form::text('last_name', null, ['required', 'placeholder' => __('last_name'), 'class' => 'form-control', 'id' => 'last_name']) !!}
+                                {!! Form::text('last_name', null, [
+                                    'required',
+                                    'placeholder' => __('last_name'),
+                                    'class' => 'form-control',
+                                    'id' => 'last_name',
+                                ]) !!}
                             </div>
                         </div>
                         <div class="row form-group">
@@ -221,19 +258,32 @@
                             </div>
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('email') }} <span class="text-danger">*</span></label>
-                                {!! Form::text('email', null, ['required', 'placeholder' => __('email'), 'class' => 'form-control', 'id' => 'email' ,'readonly' => true]) !!}
+                                {!! Form::text('email', null, [
+                                    'required',
+                                    'placeholder' => __('email'),
+                                    'class' => 'form-control',
+                                    'id' => 'email',
+                                    'readonly' => true,
+                                ]) !!}
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('mobile') }} <span class="text-danger">*</span></label>
-                                {!! Form::number('mobile', null, ['required', 'min' => 1 , 'placeholder' => __('mobile'), 'class' => 'form-control', 'id' => 'mobile']) !!}
+                                {!! Form::number('mobile', null, [
+                                    'required',
+                                    'min' => 1,
+                                    'placeholder' => __('mobile'),
+                                    'class' => 'form-control',
+                                    'id' => 'mobile',
+                                ]) !!}
 
                             </div>
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('image') }}</label><br>
                                 {{-- <input type="file" name="image" id="edit_image" class="form-control" placeholder="{{__('image')}}"> --}}
-                                <input type="file" name="image" class="file-upload-default" accept="image/png,image/jpeg,image/jpg" />
+                                <input type="file" name="image" class="file-upload-default"
+                                    accept="image/png,image/jpeg,image/jpg" />
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled=""
                                         placeholder="{{ __('image') }}" />
@@ -247,36 +297,62 @@
                         <div class="row form-group">
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('dob') }} <span class="text-danger">*</span></label>
-                                {!! Form::text('dob', null, ['required', 'placeholder' => __('dob'), 'class' => 'datepicker-popup-no-future form-control', 'id' => 'dob']) !!}
+                                {!! Form::text('dob', null, [
+                                    'required',
+                                    'placeholder' => __('dob'),
+                                    'class' => 'datepicker-popup-no-future form-control',
+                                    'id' => 'dob',
+                                ]) !!}
                                 <span class="input-group-addon input-group-append">
                                 </span>
                             </div>
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('qualification') }} <span class="text-danger">*</span></label>
-                                {!! Form::textarea('qualification', null, ['required', 'placeholder' => __('qualification'), 'class' => 'form-control', 'rows' => 3, 'id' => 'qualification']) !!}
+                                {!! Form::textarea('qualification', null, [
+                                    'required',
+                                    'placeholder' => __('qualification'),
+                                    'class' => 'form-control',
+                                    'rows' => 3,
+                                    'id' => 'qualification',
+                                ]) !!}
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('current_address') }} <span class="text-danger">*</span></label>
-                                {!! Form::textarea('current_address', null, ['required', 'placeholder' => __('current_address'), 'class' => 'form-control', 'rows' => 3, 'id' => 'current_address']) !!}
+                                {!! Form::textarea('current_address', null, [
+                                    'required',
+                                    'placeholder' => __('current_address'),
+                                    'class' => 'form-control',
+                                    'rows' => 3,
+                                    'id' => 'current_address',
+                                ]) !!}
                             </div>
                             <div class="form-group col-sm-12 col-md-6">
                                 <label>{{ __('permanent_address') }} <span class="text-danger">*</span></label>
-                                {!! Form::textarea('permanent_address', null, ['required', 'placeholder' => __('permanent_address'), 'class' => 'form-control', 'rows' => 3, 'id' => 'permanent_address']) !!}
+                                {!! Form::textarea('permanent_address', null, [
+                                    'required',
+                                    'placeholder' => __('permanent_address'),
+                                    'class' => 'form-control',
+                                    'rows' => 3,
+                                    'id' => 'permanent_address',
+                                ]) !!}
                             </div>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                              <div class="input-group-text">
-                                <input type="checkbox" name="edit_grant_permission" aria-label="Checkbox for following text input" id="edit_permission_chk" class="edit_permission_chk">
-                              </div>
+                                <div class="input-group-text">
+                                    <input type="checkbox" name="edit_grant_permission"
+                                        aria-label="Checkbox for following text input" id="edit_permission_chk"
+                                        class="edit_permission_chk">
+                                </div>
                             </div>
                             <label class="form-control" for="edit_permission_chk">
-                                {{__('grant_permission_to_manage_students_parents')}}
+                                {{ __('grant_permission_to_manage_students_parents') }}
                             </label>
                         </div>
-                        <div class="form-group text-info" style="font-size: 0.8rem;margin-top: -0.3rem">{{__('note_for_permission_of_student_manage')}}</div>
+                        <div class="form-group text-info" style="font-size: 0.8rem;margin-top: -0.3rem">
+                            {{ __('note_for_permission_of_student_manage') }}</div>
                     </div>
                     <div class="modal-footer">
                         <input class="btn btn-theme" type="submit" value={{ __('submit') }}>

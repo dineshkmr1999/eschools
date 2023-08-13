@@ -18,9 +18,15 @@ return new class extends Migration
             $table->string('admission_number');
             $table->string('student_name');
             $table->string('phone_number');
-            $table->string('email');
-            $table->string('address')->nullable();
+            $table->string('email')->nullable();
+            $table->date('student_dob');
+            $table->text('address')->nullable();
             $table->string('added_by');
+            $table->string('class_applying_for');
+            $table->text('previous_school')->nullable();
+            $table->string('gender');
+            $table->string('language_of_medium');
+            $table->string('parent_name')->nullable();
             $table->date('enquiry_date');
             $table->unsignedBigInteger('enquiry_mode_id');
             $table->foreign('enquiry_mode_id')->references('id')->on('enquiry_modes')

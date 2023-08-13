@@ -12,11 +12,17 @@ class AdmissionEnquiry extends Model
         'admission_number',
         'student_name',
         'phone_number',
+        'student_dob',
         'email',
         'address',
         'added_by',
+        'class',
         'enquiry_date',
-        'enquiry_mode_id'
+        'enquiry_mode_id',
+        'previous_school',
+        'gender',
+        'language_of_medium',
+        'parent_name'
     ];
 
     public function enquiryMode()

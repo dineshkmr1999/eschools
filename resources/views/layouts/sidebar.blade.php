@@ -156,14 +156,32 @@
             </li>
         @endcan
 
-        {{-- enquirymode --}}
-        @canany(['manage-enquiry-mode-create','manage-enquiry-mode-list'])
+
+        @hasrole('Super Admin')
+        {{-- admission --}}
+        @canany(['manage-enquiry-mode-create','manage-enquiry-mode-list','admission-enquiry-create','admission-enquiry-list'])
             <li class="nav-item">
-                @can('manage-enquiry-mode-list')
-                    <a href="{{ route('enquirymode.index') }}" class="nav-link"> <span class="menu-title">{{ __('enquirymode') }}</span> <i class="fa fa-calendar-check-o menu-icon"></i> </a>
-                @endcan
+                <a class="nav-link" data-toggle="collapse" href="#admission-menu" aria-expanded="false" aria-controls="admission-menu"> <span class="menu-title">{{ __('admission') }}</span> <i class="fa fa-university menu-icon"></i> </a>
+                <div class="collapse" id="admission-menu">
+                    <ul class="nav flex-column sub-menu">
+                        @can('manage-enquiry-mode-list')
+                            <li class="nav-item">
+                                <a href="{{ route('enquirymode.index') }}" class="nav-link">{{ __('enquirymode') }}</a>
+                            </li>
+                        @endcan
+                        @can('admission-enquiry-list')
+                            <li class="nav-item">
+                                <a href="{{ route('admissionenquiry.index') }}" class="nav-link"> {{ __('admission_enquire') }}</a>
+                            </li>
+                        @endcan
+                    </ul>
+                </div>
             </li>
         @endcanany
+        @endrole
+
+            
+        
 
         {{-- timetable --}}
         @canany(['timetable-create','class-timetable','teacher-timetable'])
