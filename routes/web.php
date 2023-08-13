@@ -43,6 +43,7 @@ use App\Http\Controllers\SubjectTeacherController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\EnquiryModeController;
 use App\Http\Controllers\AdmissionEnquiryController;
+use App\Http\Controllers\StudentLateEntryController;
 use App\Models\AdmissionEnquireMode;
 
 /*
@@ -309,6 +310,10 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         Route::resource('admissionenquiry', AdmissionEnquiryController::class);
         Route::get('admissionenquiry-list', [AdmissionEnquiryController::class, 'show']);
         Route::get('listenquirymode', [AdmissionEnquiryController::class, 'listenquirymode'])->name('listenquirymode');
+
+        //Student Late Entry
+        Route::resource('student-lateentry', StudentLateEntryController::class);
+        Route::get('student-lateentry-list', [StudentLateEntryController::class, 'show']);
 
         Route::get('app-settings', [SettingController::class, 'app_index']);
         Route::post('app-settings', [SettingController::class, 'app_update']);

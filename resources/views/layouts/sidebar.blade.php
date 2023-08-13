@@ -78,7 +78,7 @@
         @endrole
 
         {{-- student --}}
-        @canany(['student-create','student-list','category-create','student-reset-password','class-teacher'])
+        @canany(['student-create','student-list','category-create','student-reset-password','class-teacher','student-lateentry-create'])
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#student-menu" aria-expanded="false" aria-controls="academics-menu"> <span class="menu-title">{{ __('students') }}</span>
 
@@ -130,6 +130,13 @@
                                 </a>
                             </li>
                         @endif
+                        @can('student-lateentry-list')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('student-lateentry.index') }}">
+                                {{ __('student_late_entry') }}
+                            </a>
+                        </li>
+                    @endcan
                     </ul>
                 </div>
             </li>

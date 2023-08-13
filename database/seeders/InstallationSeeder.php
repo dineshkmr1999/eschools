@@ -182,6 +182,11 @@ class InstallationSeeder extends Seeder
             ['id' => 127, 'name' => 'admission-enquiry-create'],
             ['id' => 128, 'name' => 'admission-enquiry-edit'],
             ['id' => 129, 'name' => 'admission-enquiry-delete'],
+
+            ['id' => 130, 'name' => 'student-lateentry-list'],
+            ['id' => 131, 'name' => 'student-lateentry-create'],
+            ['id' => 132, 'name' => 'student-lateentry-edit'],
+            ['id' => 133, 'name' => 'student-lateentry-delete'],
         ];
         foreach ($permissions as $permission) {
             Permission::UpdateOrCreate(['id' => $permission['id']], $permission);
@@ -323,7 +328,12 @@ class InstallationSeeder extends Seeder
             'admission-enquiry-list',
             'admission-enquiry-create',
             'admission-enquiry-edit',
-            'admission-enquiry-delete'
+            'admission-enquiry-delete',
+
+            'student-lateentry-list',
+            'student-lateentry-create',
+            'student-lateentry-edit',
+            'student-lateentry-delete',
         ];
         $role->syncPermissions($superadmin_permission_list);
        

@@ -415,5 +415,10 @@
     "enquiry_date":"Enquired On",
     "previous_school":"Previous School",
     "parent_name":"Parent Or Guardian Name",
-    "class_applying_for":"Class"
+    "class_applying_for":"Class",
+    "edit_admission_enquiry":"Edit Admission Enquiry",
+    "student_late_entry":"Student Late Entry",
+    "reason":"Reason",
+    "entry_time":"Entry Time",
+    "student-lateentry-create":"Create Student Late Entry"
 }

@@ -167,7 +167,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">
-                                {{ __('list') . ' ' . __('enquirymode') }}
+                                {{ __('list') . ' ' . __('admission_enquire') }}
                             </h4>
                             <div class="row">
                                 <div class="col-12">
@@ -241,7 +241,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ __('edit_teacher') }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ __('edit_admission_enquiry') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><i class="fa fa-close"></i></span>
                     </button>
