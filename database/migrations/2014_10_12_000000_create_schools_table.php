@@ -24,8 +24,9 @@ return new class extends Migration
             $table->string('affiliation')->nullable(); // Affiliation
             $table->string('website')->nullable(); // Website
             $table->text('description')->nullable(); // Description
-            $table->date('registration_date'); // Registration Date
-            $table->enum('status', ['active', 'inactive', 'under_review'])->default('active'); // Status
+            $table->date('registration_date'); // Registration Datex
+            $table->enum('status', ['active', 'inactive'])->default('active'); // Status
+            $table->softDeletes();
             $table->timestamps();
         });
     }

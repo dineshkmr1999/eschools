@@ -19,8 +19,9 @@ return new class extends Migration
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->string('reason')->nullable();
             $table->time('entry_time');
-            $table->bigInteger('school_id');
             $table->boolean('status')->default(0);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

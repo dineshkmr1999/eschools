@@ -20,6 +20,8 @@ return new class extends Migration
             $table->id();
             $table->integer('exam_id');
             $table->integer('class_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

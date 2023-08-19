@@ -6,25 +6,37 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
-use App\Models\AdmissionEnquiry;
-use App\Models\EnquiryMode;
-use Throwable;
-class AdmissionEnquiryController extends Controller
+use App\Models\User;
+use App\Models\Schools;
+use Illuminate\Support\Facades\Hash;
+class SchoolsController extends Controller
 {
-        /**
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        if (!Auth::user()->can('admission-enquiry-list')) {
+        if (!Auth::user()->can('school-list')) {
             $response = array(
                 'message' => trans('no_permission_message')
             );
-            return redirect(route('home'))->withErrors($response);
+            return redirect(route('headsuperadmin'))->withErrors($response);
         }
-        return view('admission_enquire.index');
+        return view('schools.index');
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -35,7 +47,7 @@ class AdmissionEnquiryController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::user()->can('admission-enquiry-create')) {
+        if (!Auth::user()->can('school-create')) {
             $response = array(
                 'error' => true,
                 'message' => trans('no_permission_message')
@@ -43,21 +55,26 @@ class AdmissionEnquiryController extends Controller
             return response()->json($response);
         }
         $validator = Validator::make($request->all(), [
-            'admission_number' => 'required',
-            'student_name' => 'required',
+            'name' => 'required',
+            'address' => 'required',
             'phone_number' => ['required', 'regex:/^\d{10}$/'],
             'email' => 'required|email',
-            'student_dob' => 'required',
-            'address' => 'required',
-            'added_by' => 'required',
-            'class' => 'required',
-            'enquiry_date' => 'required',
-            'enquiry_mode_id' => 'required',
-            'previous_school' => 'required',
-            'gender' => 'required',
-            'parent_name' => 'required',
+            'principal_name' => 'nullable|required|string',
+            'founded_date' => 'nullable|required',
+            'affiliation' => 'nullable|required',
+            'website' => 'required',
+            'description' => 'required',
+            'admin_first_name' => 'required',
+            'admin_last_name' => 'required',
+            'admin_password' => 'required',
+            "gender" => 'required',
+            "admin_email"=>'required|email',
+            "admin_phone_number"=> ['required', 'regex:/^\d{10}$/'],
+            "admin_dob"=>'required',
+            "admin_current_address"=>"required",
+            "permanent_address"=>"required"
         ]);
-        
+   
         if ($validator->fails()) {
             $response = array(
                 'error' => true,
@@ -66,22 +83,33 @@ class AdmissionEnquiryController extends Controller
             return response()->json($response);
         }
         try {
-            $AdmissionEnquiry = new AdmissionEnquiry();
-            $AdmissionEnquiry->admission_number = $request->admission_number;
-            $AdmissionEnquiry->student_name = $request->student_name;
-            $AdmissionEnquiry->phone_number = $request->phone_number;
-            $AdmissionEnquiry->email = $request->email;
-            $AdmissionEnquiry->student_dob = date('Y-m-d', strtotime($request->student_dob));
-            $AdmissionEnquiry->address = $request->address;
-            $AdmissionEnquiry->added_by = $request->added_by;
-            $AdmissionEnquiry->class_applying_for = $request->class;
-            $AdmissionEnquiry->enquiry_date = date('Y-m-d', strtotime($request->enquiry_date));
-            $AdmissionEnquiry->enquiry_mode_id = $request->enquiry_mode_id;
-            $AdmissionEnquiry->previous_school = $request->previous_school;
-            $AdmissionEnquiry->gender = $request->gender;
-            $AdmissionEnquiry->parent_name = $request->parent_name;
-            $AdmissionEnquiry->school_id = Auth::user()->school_id;
-            $AdmissionEnquiry->save();
+            $Schools = new Schools();
+            $Schools->name = $request->name;
+            $Schools->address = $request->address;
+            $Schools->phone_number = $request->phone_number;
+            $Schools->email = $request->email;
+            $Schools->principal_name = $request->principal_name;
+            $Schools->founded_date =  date('Y-m-d', strtotime($request->founded_date));
+            $Schools->affiliation = $request->affiliation;
+            $Schools->website = $request->website;
+            $Schools->description = $request->description;
+            $Schools->save();
+
+            $schoolAdmin = new User ();
+            $schoolAdmin->first_name = $request->admin_first_name;
+            $schoolAdmin->last_name = $request->admin_last_name;
+            $schoolAdmin->gender = $request->gender;
+            $schoolAdmin->email = $request->admin_email;
+            $schoolAdmin->mobile = $request->admin_phone_number;
+            $schoolAdmin->dob = $request->admin_dob;
+            $schoolAdmin->current_address = $request->admin_current_address;
+            $schoolAdmin->permanent_address = $request->permanent_address;
+            $schoolAdmin->password = Hash::make($request->admin_password);
+            $schoolAdmin->school_id = $Schools->id;
+            $schoolAdmin->save(); 
+
+            $schoolAdmin->assignRole('Super Admin');
+
             $response = array(
                 'error' => false,
                 'message' => trans('data_store_successfully')
@@ -104,7 +132,8 @@ class AdmissionEnquiryController extends Controller
      */
     public function show()
     {
-        if (!Auth::user()->can('admission-enquiry-list')) {
+    
+        if (!Auth::user()->can('school-list')) {
             $response = array(
                 'message' => trans('no_permission_message')
             );
@@ -125,16 +154,16 @@ class AdmissionEnquiryController extends Controller
         if (isset($_GET['order']))
         $order = $_GET['order'];
         
-        $sql = AdmissionEnquiry::with('enquiryMode')->where('school_id', Auth::user()->school_id);
+        $sql = Schools::with('userWithSuperAdminRole');
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
-            $sql->where('mode_name', 'LIKE', "%$search%");
+            $sql->where('name', 'LIKE', "%$search%");
         }
         $total = $sql->count();
         
         $sql->orderBy($sort, $order)->skip($offset)->take($limit);
         $res = $sql->get();
-        
+      
         $bulkData = array();
         $bulkData['total'] = $total;
         $rows = array();
@@ -144,27 +173,25 @@ class AdmissionEnquiryController extends Controller
             $operate = '';
             $operate .= '<a class="btn btn-xs btn-gradient-primary btn-rounded btn-icon editdata" data-id=' . $row->id . ' title="Edit" data-toggle="modal" data-target="#editModal"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;';
             
-            $operate .= '<a class="btn btn-xs btn-gradient-danger btn-rounded btn-icon deletedata" data-id=' . $row->id . ' data-url=' . url('admissionenquiry', $row->id) . ' title="Delete"><i class="fa fa-trash"></i></a>';
+            $operate .= '<a class="btn btn-xs btn-gradient-danger btn-rounded btn-icon deletedata" data-id=' . $row->id . ' data-url=' . url('schools', $row->id) . ' title="Delete"><i class="fa fa-trash"></i></a>';
             
             
             $data = getSettings('date_formate');
            
             $tempRow['id'] = $row->id;
             $tempRow['no'] = $no++;
-            $tempRow['admission_number'] = $row->admission_number;
-            $tempRow['student_name'] = $row->student_name;
+            $tempRow['name'] = $row->name;
+            $tempRow['address'] = $row->address;
             $tempRow['phone_number'] = $row->phone_number;
             $tempRow['email'] = $row->email;
-            $tempRow['address'] = $row->address;
-            $tempRow['added_by'] = $row->added_by;
-            $tempRow['class'] = $row->class_applying_for;
-            $tempRow['student_dob'] = $row->student_dob;
-            $tempRow['enquiry_date'] = $row->enquiry_date;
-            $tempRow['enquiry_mode_id'] = $row->enquiryMode->mode_name;
-            $tempRow['enquiry_mode'] = $row->enquiry_mode_id;
-            $tempRow['previous_school'] = $row->previous_school;
-            $tempRow['gender'] = $row->gender;
-            $tempRow['parent_name'] = $row->parent_name;
+            $tempRow['principal_name'] = $row->principal_name;
+            $tempRow['founded_date'] = $row->founded_date;
+            $tempRow['affiliation'] = $row->affiliation;
+            $tempRow['website'] = $row->website;
+            $tempRow['description'] = $row->description;
+            $tempRow['status'] = $row->status;
+            $tempRow['admin_name'] = $row->userWithSuperAdminRole->first_name. " ".$row->userWithSuperAdminRole->last_name;
+            $tempRow['admin_email'] = $row->userWithSuperAdminRole->email;
 
             $tempRow['operate'] = $operate;
         
@@ -172,7 +199,19 @@ class AdmissionEnquiryController extends Controller
         }
         
         $bulkData['rows'] = $rows;
+        Log::info($bulkData);
         return response()->json($bulkData);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -182,9 +221,9 @@ class AdmissionEnquiryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        if (!Auth::user()->can('admission-enquiry-edit')) {
+        if (!Auth::user()->can('school-edit')) {
             $response = array(
                 'error' => true,
                 'message' => trans('no_permission_message')
@@ -192,18 +231,16 @@ class AdmissionEnquiryController extends Controller
             return response()->json($response);
         }
         $validator = Validator::make($request->all(), [
-            'admission_number' => 'required',
-            'student_name' => 'required',
-            'phone_number' => ['required', 'regex:/^\d{10}$/'],
+            'name' => 'required',
             'address' => 'required',
-            'added_by' => 'required',
-            'student_dob' => 'required',
-            'class' => 'required',
-            'enquiry_date' => 'required',
-            'enquiry_mode' => 'required',
-            'previous_school' => 'required',
-            'gender' => 'required',
-            'parent_name' => 'required',
+            'phone_number' => ['required', 'regex:/^\d{10}$/'],
+            'email' => 'required|email',
+            'principal_name' => 'required',
+            'founded_date' => 'required',
+            'affiliation' => 'required',
+            'website' => 'required',
+            'description' => 'required',
+            'status' => 'required'
         ]);
         
         if ($validator->fails()) {
@@ -214,21 +251,18 @@ class AdmissionEnquiryController extends Controller
             return response()->json($response);
         }
         try {
-            $AdmissionEnquiry = AdmissionEnquiry::find($request->id);
-            $AdmissionEnquiry->admission_number = $request->admission_number;
-            $AdmissionEnquiry->student_name = $request->student_name;
-            $AdmissionEnquiry->phone_number = $request->phone_number;
-            $AdmissionEnquiry->email = $request->email;
-            $AdmissionEnquiry->address = $request->address;
-            $AdmissionEnquiry->student_dob = date('Y-m-d', strtotime($request->student_dob));
-            $AdmissionEnquiry->added_by = $request->added_by;
-            $AdmissionEnquiry->class_applying_for = $request->class;
-            $AdmissionEnquiry->enquiry_date = date('Y-m-d', strtotime($request->enquiry_date));
-            $AdmissionEnquiry->enquiry_mode_id = $request->enquiry_mode;
-            $AdmissionEnquiry->previous_school = $request->previous_school;
-            $AdmissionEnquiry->gender = $request->gender;
-            $AdmissionEnquiry->parent_name = $request->parent_name;
-            $AdmissionEnquiry->save();
+            $Schools  = Schools::find($request->id);
+            $Schools->name = $request->name;
+            $Schools->address = $request->address;
+            $Schools->phone_number = $request->phone_number;
+            $Schools->email = $request->email;
+            $Schools->principal_name = $request->principal_name;
+            $Schools->founded_date =  date('Y-m-d', strtotime($request->founded_date));
+            $Schools->affiliation = $request->affiliation;
+            $Schools->website = $request->website;
+            $Schools->description = $request->description;
+            $Schools->status = $request->status;
+            $Schools->save();
             $response = array(
                 'error' => false,
                 'message' => trans('data_update_successfully')
@@ -250,7 +284,7 @@ class AdmissionEnquiryController extends Controller
      */
     public function destroy($id)
     {
-        if (!Auth::user()->can('admission-enquiry-delete')) {
+        if (!Auth::user()->can('school-delete')) {
             $response = array(
                 'error' => true,
                 'message' => trans('no_permission_message')
@@ -258,7 +292,7 @@ class AdmissionEnquiryController extends Controller
             return response()->json($response);
         }
         try {
-            AdmissionEnquiry::find($id)->delete();
+            Schools::find($id)->delete();
             $response = array(
                 'error' => false,
                 'message' => trans('data_delete_successfully')
@@ -269,11 +303,6 @@ class AdmissionEnquiryController extends Controller
                 'message' => trans('error_occurred')
             );
         }
-        return response()->json($response);
-    }
-
-    public function listenquirymode(){
-        $response = EnquiryMode::where('active',1)->get();
         return response()->json($response);
     }
 }

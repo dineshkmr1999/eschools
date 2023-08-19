@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdmissionEnquireModeController;
+use App\Http\Controllers\SchoolsController;
 use App\Models\Grade;
 use App\Models\ExamTimetable;
 use Illuminate\Support\Facades\Auth;
@@ -118,7 +119,7 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         Route::post('students/assign-class', [StudentController::class, 'assignClass_store'])->name('students.assign-class.store');
         Route::get('students/new-student-list', [StudentController::class, 'newStudentList'])->name('students.new-student-list');
         Route::get('students/create_bulk', [StudentController::class, 'createBulkData'])->name('students.create-bulk-data');
-        // Route::post('students/store_bulk', [StudentController::class, 'storeBulkData'])->name('students.store-bulk-data');
+        Route::post('students/store_bulk', [StudentController::class, 'storeBulkData'])->name('students.store-bulk-data');
         Route::resource('students', StudentController::class);
 
         //student generate roll number
@@ -259,25 +260,6 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
 
         Route::get('fees/paid/receipt-pdf/{id}', [FeesTypeController::class, 'feesPaidReceiptPDF'])->name('fees.paid.receipt.pdf');
        
-       //our code
-        Route::get('fees/fees-receipt', function () {
-            return view('fees.fees_receipt');
-        })->name('fees.receipt');
-        Route::get('fees/create-bulk', function () {
-            return view('fees.fees_bulk_data');
-        })->name('fees-type.create-bulk-data');
-        
-        Route::get('/super-admin', function () {
-            return view('superadmin.dashboard');
-        })->middleware('head');
-        
-       // Route::get('feestype/create_bulk', [FeesTypeController::class, 'createBulkData'])->name('fees-type.create-bulk-data');
-        Route::post('feestype/store-bulk', [FeesTypeController::class, 'import'])->name('fees-type.store-bulk-data');
-        Route::get('teacher/create-bulk', function () {
-            return view('teacher.teacher_bulk_data');
-        })->name('teacher.create-bulk-data');
-        
-           Route::post('teacher/store-bulk', [TeacherController::class, 'import'])->name('teacher.store-bulk-data');   
         
         // Online Exam
         Route::get('online-exam/terms-conditions',[OnlineExamController::class ,'onlineExamTermsConditionIndex'])->name('online-exam.terms-conditions');
@@ -320,6 +302,37 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         Route::get('system-update', [SystemUpdateController::class, 'index'])->name('system-update.index');
         Route::post('system-update', [SystemUpdateController::class, 'update'])->name('system-update.update');
     });
+});
+
+
+Route::middleware(['head'])->group(function () {
+
+    //schools
+    Route::resource('schools', SchoolsController::class);
+    Route::get('schools-list', [SchoolsController::class, 'show']);
+
+    // Your routes that require the 'head' middleware
+    Route::get('fees/fees-receipt', function () {
+        return view('fees.fees_receipt');
+    })->name('fees.receipt');
+
+    Route::get('fees/create-bulk', function () {
+        return view('fees.fees_bulk_data');
+    })->name('fees-type.create-bulk-data');
+
+    Route::get('/super-admin', function () {
+        return view('superadmin.dashboard');
+    })->name('headsuperadmin');
+
+    // ... other routes
+
+    Route::post('feestype/store-bulk', [FeesTypeController::class, 'import'])->name('fees-type.store-bulk-data');
+
+    Route::get('teacher/create-bulk', function () {
+        return view('teacher.teacher_bulk_data');
+    })->name('teacher.create-bulk-data');
+
+    Route::post('teacher/store-bulk', [TeacherController::class, 'import'])->name('teacher.store-bulk-data');
 });
 
 // webhooks

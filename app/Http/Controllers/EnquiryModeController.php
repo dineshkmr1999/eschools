@@ -56,6 +56,7 @@ class EnquiryModeController extends Controller
         try {
             $enquiryMode = new EnquiryMode();
             $enquiryMode->mode_name = $request->mode_name;
+            $enquiryMode->school_id = Auth::user()->school_id;
             $enquiryMode->save();
             $response = array(
                 'error' => false,
@@ -99,7 +100,7 @@ class EnquiryModeController extends Controller
         if (isset($_GET['order']))
         $order = $_GET['order'];
         
-        $sql = EnquiryMode::where('id','!=',0);
+        $sql = EnquiryMode::where('id','!=',0)->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('mode_name', 'LIKE', "%$search%");
