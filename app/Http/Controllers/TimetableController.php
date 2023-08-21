@@ -29,7 +29,7 @@ class TimetableController extends Controller
             );
             return redirect(route('home'))->withErrors($response);
         }
-        $class_sections = ClassSection::with('class.medium', 'section')->get();
+        $class_sections = ClassSection::with('class.medium', 'section')->where('school_id', Auth::user()->school_id)->get();
         return view('timetable.index', compact('class_sections'));
     }
 

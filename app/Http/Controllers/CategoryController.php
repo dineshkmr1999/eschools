@@ -49,6 +49,7 @@ class CategoryController extends Controller
         try {
             $category = new Category();
             $category->name = $request->name;
+            $category->school_id = Auth::user()->school_id;
             $category->save();
             $response = [
                 'error' => false,
@@ -93,7 +94,7 @@ class CategoryController extends Controller
         if (isset($_GET['order']))
             $order = $_GET['order'];
 
-        $sql = Category::where('id', '!=', 0);
+        $sql = Category::where('id', '!=', 0)->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")->orwhere('name', 'LIKE', "%$search%")->orwhere('status', 'LIKE', "%$search%");

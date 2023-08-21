@@ -10,7 +10,8 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 512);
@@ -21,6 +22,8 @@ return new class extends Migration {
             $table->string('image', 512)->nullable();
             $table->date('dob')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
@@ -32,7 +35,8 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('users');
     }
 };

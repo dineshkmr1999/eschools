@@ -105,6 +105,7 @@ class FeesTypeController extends Controller
         $fees_type->name = $request->name;
         $fees_type->description = $request->description;
         $fees_type->choiceable = $request->choiceable;
+        $fees_type->school_id = Auth::user()->school_id;
         $fees_type->save();
         $response = array(
             'error' => false,
@@ -149,7 +150,7 @@ class FeesTypeController extends Controller
         if (isset($_GET['order']))
             $order = $_GET['order'];
 
-        $sql = FeesType::select('*');
+        $sql = FeesType::where('school_id', Auth::user()->school_id)->select('*');
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('code', 64);
             $table->string('file', 512);
             $table->tinyInteger('status')->default(0)->comment('1=>active');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

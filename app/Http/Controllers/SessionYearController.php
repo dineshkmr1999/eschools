@@ -66,6 +66,7 @@ class SessionYearController extends Controller
             $session_year->name = $request->name;
             $session_year->start_date = date('Y-m-d',strtotime($request->start_date));
             $session_year->end_date = date('Y-m-d',strtotime($request->end_date));
+            $session_year->school_id = Auth::user()->school_id;
             $session_year->save();
             $response = array(
                 'error' => false,
@@ -146,7 +147,7 @@ class SessionYearController extends Controller
         if (isset($_GET['order']))
         $order = $_GET['order'];
 
-        $sql = SessionYear::where('id','!=',0);
+        $sql = SessionYear::where('id','!=',0)->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")

@@ -16,7 +16,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Auth;
 class SubjectController extends Controller
 {
     /**
@@ -26,8 +26,8 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::orderBy('id', 'DESC')->get();
-        $mediums = Mediums::orderBy('id', 'DESC')->get();
+        $subjects = Subject::orderBy('id', 'DESC')->where('school_id', Auth::user()->school_id)->get();
+        $mediums = Mediums::orderBy('id', 'DESC')->where('school_id', Auth::user()->school_id)->get();
         return response(view('subject.index', compact('subjects', 'mediums')));
     }
 
@@ -259,7 +259,7 @@ class SubjectController extends Controller
         if (isset($_GET['order']))
             $order = $_GET['order'];
 
-        $sql = Subject::with('medium');
+        $sql = Subject::with('medium')->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql = $sql->where('id', 'LIKE', "%$search%")->orwhere('name', 'LIKE', "%$search%")->orwhere('code', 'LIKE', "%$search%")->orwhere('type', 'LIKE', "%$search%");

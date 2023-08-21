@@ -75,6 +75,7 @@ class ExpensesController extends Controller
         $expense->name = $request->input('name');
         $expense->cost = $request->input('cost');
         $expense->description = $request->input('description');
+        $expense->school_id = Auth::user()->school_id;
         $expense->save();
 
         } catch (Throwable $e) {
@@ -119,7 +120,7 @@ class ExpensesController extends Controller
         if (isset($_GET['order']))
             $order = $_GET['order'];
     
-        $sql = Expense::with('user');
+        $sql = Expense::with('user')->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")

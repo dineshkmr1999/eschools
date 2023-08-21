@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -30,12 +29,14 @@ return new class extends Migration
             $table->date('enquiry_date');
             $table->unsignedBigInteger('enquiry_mode_id');
             $table->foreign('enquiry_mode_id')->references('id')->on('enquiry_modes')
-                  ->onDelete('cascade'); 
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

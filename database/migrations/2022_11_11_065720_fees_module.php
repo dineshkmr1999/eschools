@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable(true);
             $table->tinyInteger('choiceable')->comment('0 - no 1 - yes');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +33,8 @@ return new class extends Migration
             $table->integer('class_id');
             $table->integer('fees_type_id');
             $table->integer('amount');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -43,6 +47,8 @@ return new class extends Migration
             $table->tinyInteger('is_due_charges')->comment('0 - no 1 - yes');
             $table->integer('total_amount');
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -59,6 +65,8 @@ return new class extends Migration
             $table->tinyInteger('payment_status')->comment('0 - failed 1 - succeed 2 - pending');
             $table->integer('total_amount');
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -74,6 +82,8 @@ return new class extends Migration
             $table->integer('total_amount');
             $table->date('date');
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

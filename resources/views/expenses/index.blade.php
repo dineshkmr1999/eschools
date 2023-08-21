@@ -39,10 +39,10 @@
                                     <label>{{ __('Cost') }} <span class="text-danger">*</span></label>
                                     {!! Form::number('cost', null, ['required', 'placeholder' => __('Cost'),'min' => 1 , 'class' => 'form-control']) !!}
                                 </div>
-                                <div class="form-group col-sm-12 col-md-6">
+                                <!-- <div class="form-group col-sm-12 col-md-6">
                                     <label>{{ __('School') }} <span class="text-danger">*</span></label>
                                     {!! Form::text('school', null, ['required', 'placeholder' => __('School'), 'class' => 'form-control']) !!}
-                                </div>
+                                </div> -->
                             </div>
                     
                             <input class="btn btn-theme" type="submit" value={{ __('submit') }}>

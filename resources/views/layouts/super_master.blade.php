@@ -18,7 +18,7 @@
     <title>@yield('title') || {{ config('app.name') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('layouts.include')
-    @yield('css')
+    {{-- @yield('css') --}}
 
 </head>
 <body class="sidebar-fixed">

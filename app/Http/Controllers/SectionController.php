@@ -57,6 +57,7 @@ class SectionController extends Controller
         try {
             $section = new Section();
             $section->name = $request->name;
+            $section->school_id = Auth::user()->school_id;
             $section->save();
             $response = array(
                 'error' => false,
@@ -170,7 +171,7 @@ class SectionController extends Controller
         if (isset($_GET['order']))
         $order = $_GET['order'];
 
-        $sql = Section::where('id','!=',0);
+        $sql = Section::where('id','!=',0)->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")->orwhere('name', 'LIKE', "%$search%");

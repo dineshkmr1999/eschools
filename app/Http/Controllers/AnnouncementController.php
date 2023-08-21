@@ -84,6 +84,7 @@ class AnnouncementController extends Controller
                 $announcement = new Announcement();
                 $announcement->title = $request->title;
                 $announcement->description = $request->description;
+                $announcement->school_id = Auth::user()->school_id;
                 $announcement->session_year_id = $data['session_year'];
                 if (!empty($request->set_data)) {
                     if ($request->set_data == 'class_section') {
@@ -265,7 +266,7 @@ class AnnouncementController extends Controller
         }
         $total = $sql->count();
         $sql->orderBy($sort, $order)->skip($offset)->take($limit);
-        $res = $sql->get();
+        $res = $sql->where('school_id', Auth::user()->school_id)->get();
         $bulkData = array();
         $bulkData['total'] = $total;
         $rows = array();

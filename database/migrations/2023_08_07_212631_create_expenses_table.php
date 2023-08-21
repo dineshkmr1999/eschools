@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->bigInteger('cost')->nullable();
-            $table->string('school_id')->nullable();
             $table->string('user_id')->nullable();
             $table->boolean('status')->default(0);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

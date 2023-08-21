@@ -39,9 +39,9 @@ class ExamController extends Controller
             );
             return redirect(route('home'))->withErrors($response);
         }
-        $classes = ClassSchool::with('medium')->get();
-        $subjects = Subject::orderBy('id', 'DESC')->get();
-        $session_year_all = SessionYear::select('id', 'name', 'default')->get();
+        $classes = ClassSchool::with('medium')->where('school_id', Auth::user()->school_id)->get();
+        $subjects = Subject::orderBy('id', 'DESC')->where('school_id', Auth::user()->school_id)->get();
+        $session_year_all = SessionYear::select('id', 'name', 'default')->where('school_id', Auth::user()->school_id)->get();
         return response(view('exams.index', compact('classes', 'subjects', 'session_year_all')));
     }
 
@@ -78,6 +78,7 @@ class ExamController extends Controller
             $exam->name = $request->name;
             $exam->description = $request->description;
             $exam->session_year_id = $request->session_year_id;
+            $exam->school_id = Auth::user()->school_id;
             $exam->save();
 
             if ($request->class_id) {
@@ -133,7 +134,7 @@ class ExamController extends Controller
         if (isset($_GET['order']))
             $order = $_GET['order'];
 
-        $sql = Exam::with('exam_classes.class.medium', 'session_year', 'timetable');
+        $sql = Exam::with('exam_classes.class.medium', 'session_year', 'timetable')->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")
@@ -706,7 +707,8 @@ class ExamController extends Controller
             foreach ($request->grade as $grade) {
                 Grade::updateOrInsert(
                     ['id' => isset($grade['id']) ? $grade['id'] : null],
-                    ['starting_range' => $grade['starting_range'], 'ending_range' => $grade['ending_range'], 'grade' => $grade['grades']]
+                    ['starting_range' => $grade['starting_range'], 'ending_range' => $grade['ending_range'], 'grade' => $grade['grades']],
+                   
                 );
             }
             $response = array(

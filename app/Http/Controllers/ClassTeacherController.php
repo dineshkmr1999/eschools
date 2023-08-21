@@ -22,12 +22,12 @@ class ClassTeacherController extends Controller
             );
             return redirect(route('home'))->withErrors($response);
         }
-        $class_section = ClassSection::with('class.medium', 'section')->get();
-        $class_teacher_ids = ClassSection::whereNot('class_teacher_id', null)->pluck('class_teacher_id');
+        $class_section = ClassSection::with('class.medium', 'section')->where('school_id', Auth::user()->school_id)->get();
+        $class_teacher_ids = ClassSection::where('school_id', Auth::user()->school_id)->whereNot('class_teacher_id', null)->pluck('class_teacher_id');
         // $assign_teacher_id = ClassSection::select('class_teacher_id')->whereNotNull('class_teacher_id')->get()->pluck('class_teacher_id');
         // $teachers = Teacher::whereNotIn('id', $assign_teacher_id)->with('user')->get();
-        $teachers = Teacher::with('user')->whereNotIn('id', $class_teacher_ids)->get();
-        $classes = ClassSchool::orderBy('id', 'DESC')->with('medium')->get();
+        $teachers = Teacher::with('user')->whereNotIn('id', $class_teacher_ids)->where('school_id', Auth::user()->school_id)->get();
+        $classes = ClassSchool::orderBy('id', 'DESC')->with('medium')->where('school_id', Auth::user()->school_id)->get();
 
         return view('class.teacher', compact('class_section', 'teachers', 'classes'));
     }
