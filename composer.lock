@@ -1788,6 +1788,7 @@
         },
         {
             "name": "guzzlehttp/psr7",
+<<<<<<< HEAD
             "version": "2.6.1",
             "source": {
                 "type": "git",
@@ -1798,6 +1799,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/guzzle/psr7/zipball/be45764272e8873c72dbe3d2edcfdfcc3bc9f727",
                 "reference": "be45764272e8873c72dbe3d2edcfdfcc3bc9f727",
+=======
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/psr7.git",
+                "reference": "8bd7c33a0734ae1c5d074360512beb716bef3f77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/8bd7c33a0734ae1c5d074360512beb716bef3f77",
+                "reference": "8bd7c33a0734ae1c5d074360512beb716bef3f77",
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
                 "shasum": ""
             },
             "require": {
@@ -1884,7 +1897,11 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/guzzle/psr7/tree/2.6.1"
+=======
+                "source": "https://github.com/guzzle/psr7/tree/2.6.0"
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
             },
             "funding": [
                 {
@@ -1900,7 +1917,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-08-27T10:13:57+00:00"
+=======
+            "time": "2023-08-03T15:06:02+00:00"
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
         },
         {
             "name": "guzzlehttp/uri-template",
@@ -3425,6 +3446,7 @@
         },
         {
             "name": "nesbot/carbon",
+<<<<<<< HEAD
             "version": "2.70.0",
             "source": {
                 "type": "git",
@@ -3435,6 +3457,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d3298b38ea8612e5f77d38d1a99438e42f70341d",
                 "reference": "d3298b38ea8612e5f77d38d1a99438e42f70341d",
+=======
+            "version": "2.69.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/briannesbitt/Carbon.git",
+                "reference": "4308217830e4ca445583a37d1bf4aff4153fa81c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4308217830e4ca445583a37d1bf4aff4153fa81c",
+                "reference": "4308217830e4ca445583a37d1bf4aff4153fa81c",
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
                 "shasum": ""
             },
             "require": {
@@ -3527,7 +3561,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-09-07T16:43:50+00:00"
+=======
+            "time": "2023-08-03T09:00:52+00:00"
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
         },
         {
             "name": "nette/schema",
@@ -8000,6 +8038,7 @@
         },
         {
             "name": "laravel/sail",
+<<<<<<< HEAD
             "version": "v1.25.0",
             "source": {
                 "type": "git",
@@ -8010,6 +8049,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/sail/zipball/e81a7bd7ac1a745ccb25572830fecf74a89bb48a",
                 "reference": "e81a7bd7ac1a745ccb25572830fecf74a89bb48a",
+=======
+            "version": "v1.23.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/sail.git",
+                "reference": "cfa1ad579349110a87f9412eb65ecba94d682ac2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/cfa1ad579349110a87f9412eb65ecba94d682ac2",
+                "reference": "cfa1ad579349110a87f9412eb65ecba94d682ac2",
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
                 "shasum": ""
             },
             "require": {
@@ -8061,7 +8112,11 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
+<<<<<<< HEAD
             "time": "2023-09-11T17:37:09+00:00"
+=======
+            "time": "2023-08-17T12:49:32+00:00"
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
         },
         {
             "name": "maximebf/debugbar",
@@ -8793,6 +8848,7 @@
         },
         {
             "name": "phpunit/phpunit",
+<<<<<<< HEAD
             "version": "9.6.12",
             "source": {
                 "type": "git",
@@ -8803,6 +8859,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a122c2ebd469b751d774aa0f613dc0d67697653f",
                 "reference": "a122c2ebd469b751d774aa0f613dc0d67697653f",
+=======
+            "version": "9.6.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpunit.git",
+                "reference": "810500e92855eba8a7a5319ae913be2da6f957b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/810500e92855eba8a7a5319ae913be2da6f957b0",
+                "reference": "810500e92855eba8a7a5319ae913be2da6f957b0",
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
                 "shasum": ""
             },
             "require": {
@@ -8876,7 +8944,11 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
+<<<<<<< HEAD
                 "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.12"
+=======
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.11"
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
             },
             "funding": [
                 {
@@ -8892,7 +8964,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2023-09-12T14:39:31+00:00"
+=======
+            "time": "2023-08-19T07:10:56+00:00"
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
         },
         {
             "name": "sebastian/cli-parser",

@@ -32,6 +32,11 @@ class LoginController extends Controller
 
    protected function authenticated(Request $request, $user)
    {
+<<<<<<< HEAD
+=======
+   
+    
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
     if(Auth::user()->hasRole(5)){
         return redirect('/super-admin')->with('message','Welcome SuperAdmin');
     }else if(Auth::user()->hasRole(6)){

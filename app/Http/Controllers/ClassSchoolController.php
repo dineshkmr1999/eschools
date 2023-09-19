@@ -28,6 +28,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class ClassSchoolController extends Controller
 {
@@ -44,9 +45,9 @@ class ClassSchoolController extends Controller
             );
             return redirect(route('home'))->withErrors($response);
         }
-        $classes = ClassSchool::orderBy('id', 'DESC')->with('medium', 'sections')->get();
-        $sections = Section::orderBy('id', 'ASC')->get();
-        $mediums = Mediums::orderBy('id', 'ASC')->get();
+        $classes = ClassSchool::orderBy('id', 'DESC')->where('school_id', Auth::user()->school_id)->with('medium', 'sections')->get();
+        $sections = Section::orderBy('id', 'ASC')->where('school_id', Auth::user()->school_id)->get();
+        $mediums = Mediums::orderBy('id', 'ASC')->where('school_id', Auth::user()->school_id)->get();
         return response(view('class.index', compact('classes', 'sections', 'mediums')));
     }
 
@@ -83,6 +84,7 @@ class ClassSchoolController extends Controller
             $class = new ClassSchool();
             $class->name = $request->name;
             $class->medium_id = $request->medium_id;
+            $class->school_id = Auth::user()->school_id;
             $class->save();
             $class_section = array();
             foreach ($request->section_id as $section_id) {
@@ -279,7 +281,7 @@ class ClassSchoolController extends Controller
         if (isset($_GET['order']))
             $order = $_GET['order'];
 
-        $sql = ClassSchool::with('sections', 'medium');
+        $sql = ClassSchool::with('sections', 'medium')->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")->orwhere('name', 'LIKE', "%$search%")
@@ -334,8 +336,9 @@ class ClassSchoolController extends Controller
         }
 
         $classes = ClassSchool::orderBy('id', 'DESC')->with('medium', 'sections')->get();
-        $subjects = Subject::orderBy('id', 'ASC')->get();
-        $mediums = Mediums::orderBy('id', 'ASC')->get();
+        log::info($classes);
+        $subjects = Subject::orderBy('id', 'ASC')->where('school_id', Auth::user()->school_id)->get();
+        $mediums = Mediums::orderBy('id', 'ASC')->where('school_id', Auth::user()->school_id)->get();
 
 
 

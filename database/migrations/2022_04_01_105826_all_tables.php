@@ -33,6 +33,8 @@ return new class extends Migration {
             $table->string('mother_image', 512)->nullable();
             $table->integer('parent_id');
             $table->tinyInteger('is_new_admission')->default(1);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -42,6 +44,8 @@ return new class extends Migration {
             $table->id();
             $table->integer('user_id');
             $table->string('qualification', 512);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -49,6 +53,8 @@ return new class extends Migration {
         Schema::create('parents', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -57,6 +63,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 512);
             $table->tinyInteger('default')->default(0);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -65,6 +73,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 512);
             $table->tinyInteger('status')->default(1);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -73,6 +83,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 512);
             $table->integer('medium_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -80,6 +92,8 @@ return new class extends Migration {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('name', 512);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -89,6 +103,8 @@ return new class extends Migration {
             $table->integer('class_id');
             $table->integer('section_id');
             $table->integer('class_teacher_id')->nullable();
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -96,6 +112,8 @@ return new class extends Migration {
         Schema::create('mediums', function (Blueprint $table) {
             $table->id();
             $table->string('name', 512);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -108,6 +126,8 @@ return new class extends Migration {
             $table->string('image', 512);
             $table->integer('medium_id');
             $table->string('type', 64)->comment('Theory / Practical');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -118,6 +138,8 @@ return new class extends Migration {
             $table->string('type', 32)->comment('Compulsory / Elective');
             $table->integer('subject_id');
             $table->integer('elective_subject_group_id')->nullable()->comment('if type=Elective');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -127,6 +149,8 @@ return new class extends Migration {
             $table->integer('total_subjects');
             $table->integer('total_selectable_subjects');
             $table->integer('class_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -136,6 +160,8 @@ return new class extends Migration {
             $table->integer('class_section_id');
             $table->integer('subject_id');
             $table->integer('teacher_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -146,6 +172,8 @@ return new class extends Migration {
             $table->integer('subject_id');
             $table->integer('class_section_id');
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -156,6 +184,8 @@ return new class extends Migration {
             $table->string('description', 1024)->nullable();
             $table->integer('class_section_id');
             $table->integer('subject_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -166,6 +196,8 @@ return new class extends Migration {
             $table->string('name', 128);
             $table->string('description', 1024)->nullable();
             $table->string('file', 512)->nullable();
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -181,6 +213,8 @@ return new class extends Migration {
             $table->boolean('resubmission')->default(0);
             $table->integer('extra_days_for_resubmission')->nullable();
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -193,6 +227,8 @@ return new class extends Migration {
             $table->text('feedback')->nullable();
             $table->integer('points')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0 = Pending/In Review , 1 = Accepted , 2 = Rejected , 3 = Resubmitted');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -204,6 +240,8 @@ return new class extends Migration {
             $table->integer('class_id');
             $table->integer('session_year_id');
             $table->tinyInteger('publish')->default(0);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -218,6 +256,8 @@ return new class extends Migration {
             $table->time('start_time');
             $table->time('end_time');
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -232,6 +272,8 @@ return new class extends Migration {
             $table->boolean('passing_status')->comment('1=Pass, 0=Fail');
             $table->integer('session_year_id');
             $table->tinyText('grade')->nullable();
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -247,6 +289,8 @@ return new class extends Migration {
             $table->float('percentage');
             $table->tinyText('grade');
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -255,6 +299,8 @@ return new class extends Migration {
             $table->integer('minimum_percentage');
             $table->integer('maximum_percentage');
             $table->tinyText('grade');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -265,6 +311,8 @@ return new class extends Migration {
             $table->time('end_time');
             $table->string('note', 1024)->nullable();
             $table->integer('day')->comment('1=monday,2=tuesday,3=wednesday,4=thursday,5=friday,6=saturday,7=sunday');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -277,6 +325,8 @@ return new class extends Migration {
             $table->float('amount');
             $table->date('due_date');
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -288,6 +338,8 @@ return new class extends Migration {
             $table->string('description', 1024)->nullable();
             $table->float('amount');
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -299,6 +351,8 @@ return new class extends Migration {
             $table->tinyInteger('status')->default(0)->comment('0=Not Paid,1=Paid');
             $table->string('description', 1024)->nullable();
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -309,6 +363,8 @@ return new class extends Migration {
             $table->string('description', 1024);
             $table->nullableMorphs('table');
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -319,6 +375,8 @@ return new class extends Migration {
             $table->string('title', 512);
             $table->string('description', 1024)->nullable();
             $table->integer('session_year_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -330,6 +388,8 @@ return new class extends Migration {
             $table->tinyInteger('type')->comment('0=Absent, 1=Present');
             $table->date('date');
             $table->string('remark', 512);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

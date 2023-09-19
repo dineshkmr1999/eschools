@@ -28,6 +28,8 @@ return new class extends Migration
             $table->dateTime('end_date');
             $table->bigInteger('session_year_id')->unsigned()->index();
             $table->foreign('session_year_id')->references('id')->on('session_years')->onDelete('cascade');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -44,6 +46,8 @@ return new class extends Migration
             $table->string('question', 1024);
             $table->string('image_url',1024)->nullable(true);
             $table->string('note', 1024)->nullable(true);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -57,6 +61,8 @@ return new class extends Migration
             $table->foreign('question_id')->references('id')->on('online_exam_questions')->onDelete('cascade');
 
             $table->string('option', 1024);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -72,6 +78,9 @@ return new class extends Migration
             $table->bigInteger('answer')->unsigned()->index()->comment('option id');
             $table->foreign('answer')->references('id')->on('online_exam_question_options')->onDelete('cascade');
 
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -86,6 +95,9 @@ return new class extends Migration
 
             $table->bigInteger('question_id')->unsigned()->index();
             $table->foreign('question_id')->references('id')->on('online_exam_questions')->onDelete('cascade');
+
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
 
             $table->integer('marks')->nullable(true);
             $table->timestamps();
@@ -103,6 +115,9 @@ return new class extends Migration
             //foreign key of online_exams
             $table->bigInteger('online_exam_id')->unsigned()->index();
             $table->foreign('online_exam_id')->references('id')->on('online_exams')->onDelete('cascade');
+
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
 
             $table->tinyInteger('status')->comment('1 - in progress 2 - completed');
             $table->timestamps();
@@ -127,6 +142,9 @@ return new class extends Migration
 
             $table->bigInteger('option_id')->unsigned()->index();
             $table->foreign('option_id')->references('id')->on('online_exam_question_options')->onDelete('cascade');
+
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
 
             $table->date('submitted_date');
 

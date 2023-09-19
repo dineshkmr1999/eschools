@@ -180,12 +180,14 @@ class TeacherController extends Controller
                 $user->email = $request->email;
                 $user->mobile = $request->mobile;
                 $user->dob = date('Y-m-d', strtotime($request->dob));
+                $user->school_id = Auth::user()->school_id;
                 $user->save();
 
 
                 $teacher = new Teacher();
                 $teacher->user_id = $user->id;
                 $teacher->qualification = $request->qualification;
+                $teacher->school_id = Auth::user()->school_id;
                 $teacher->save();
                 if($request->grant_permission){
                     $user->givePermissionTo([
@@ -265,7 +267,7 @@ class TeacherController extends Controller
         if (isset($_GET['order']))
             $order = $_GET['order'];
 
-        $sql = Teacher::with('user');
+        $sql = Teacher::with('user')->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")

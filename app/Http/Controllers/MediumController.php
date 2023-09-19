@@ -37,6 +37,7 @@ class MediumController extends Controller
         try {
             $medium = new Mediums();
             $medium->name = $request->name;
+            $medium->school_id = Auth::user()->school_id;
             $medium->save();
             $response = [
                 'error' => false,
@@ -142,7 +143,7 @@ class MediumController extends Controller
         if (isset($_GET['order']))
             $order = $_GET['order'];
 
-        $sql = Mediums::where('id', '!=', 0);
+        $sql = Mediums::where('id', '!=', 0)->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")->orwhere('name', 'LIKE', "%$search%");

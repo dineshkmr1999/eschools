@@ -189,6 +189,7 @@ class InstallationSeeder extends Seeder
             ['id' => 132, 'name' => 'student-lateentry-edit'],
             ['id' => 133, 'name' => 'student-lateentry-delete'],
 
+<<<<<<< HEAD
             ['id' => 134, 'name' => 'Hr-list'],
             ['id' => 135, 'name' => 'Hr-create'],
             ['id' => 136, 'name' => 'Hr-edit'],
@@ -196,6 +197,12 @@ class InstallationSeeder extends Seeder
 
             ['id' => 138, 'name' => 'teacher-data'],
 
+=======
+            ['id' => 134, 'name' => 'school-list'],
+            ['id' => 135, 'name' => 'school-create'],
+            ['id' => 136, 'name' => 'school-edit'],
+            ['id' => 137, 'name' => 'school-delete'],
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
         ];
         foreach ($permissions as $permission) {
             Permission::UpdateOrCreate(['id' => $permission['id']], $permission);
@@ -344,11 +351,18 @@ class InstallationSeeder extends Seeder
             'student-lateentry-edit',
             'student-lateentry-delete',
 
+<<<<<<< HEAD
             'Hr-list',
             'Hr-create',
             'Hr-edit',
             'Hr-delete',
 
+=======
+            'school-list',
+            'school-create',
+            'school-edit',
+            'school-delete'
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
         ];
         $role->syncPermissions($superadmin_permission_list);
 

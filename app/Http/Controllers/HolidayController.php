@@ -58,6 +58,7 @@ class HolidayController extends Controller
             $holiday->date = date('Y-m-d', strtotime($request->date));
             $holiday->title = $request->title;
             $holiday->description = $request->description;
+            $holiday->school_id = Auth::user()->school_id;
             $holiday->save();
             $response = array(
                 'error' => false,
@@ -145,7 +146,7 @@ class HolidayController extends Controller
         if (isset($_GET['order']))
         $order = $_GET['order'];
         
-        $sql = Holiday::where('id','!=',0);
+        $sql = Holiday::where('id','!=',0)->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")

@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\View;
 
 class HeadSuperAdmin
 {
@@ -23,6 +25,12 @@ class HeadSuperAdmin
                 return $next($request);
             }
         }
+<<<<<<< HEAD
         return response('Unauthorized.', 401);
+=======
+
+        return new Response(View::make('unauthorized'), 403);
+
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
     }
 }

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('mode_name');
             $table->boolean('active')->default(true);
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

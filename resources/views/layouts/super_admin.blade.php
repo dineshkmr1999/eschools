@@ -87,7 +87,11 @@
         {{-- student --}}
         @can('teacher-create')
             <li class="nav-item">
+<<<<<<< HEAD
                 <a href="{{ route('students.create-bulk-data-super-admin') }}" class="nav-link"> <span
+=======
+                <a href="{{ route('students.create-bulk-data') }}" class="nav-link"> <span
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
                         class="menu-title">{{ __('Student bulk update ') }}</span> <i
                         class="fa fa-graduation-cap menu-icon"></i> </a> </a>
             </li>
@@ -95,18 +99,38 @@
         {{-- teacher --}}
         @can('teacher-create')
             <li class="nav-item">
+<<<<<<< HEAD
                 <a href="{{ route('teacher.create-bulk-data-super-admin') }}" class="nav-link"> <span
+=======
+                <a href="{{ route('teacher.create-bulk-data') }}" class="nav-link"> <span
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
                         class="menu-title">{{ __('Teacher') }}</span> <i class="fa fa-user menu-icon"></i> </a>
             </li>
         @endcan
         {{-- fees --}}
         {{-- @can('teacher-create')
             <li class="nav-item">
+<<<<<<< HEAD
                 <a href="{{ route('fees-type.create-fees-bulk-data-super-admin') }}" class="nav-link"> <span
                         class="menu-title">{{ __('Fees type') }} {{ __('bulk data') }} {{ __('') }} </span> <i
                         class="fa fa-dollar menu-icon"></i> </a>
             </li>
         @endcan --}}
+=======
+                <a href="{{ route('fees-type.create-bulk-data') }}" class="nav-link"> <span
+                        class="menu-title">{{ __('Fees type') }} {{ __('bulk data') }} {{ __('') }} </span> <i
+                        class="fa fa-dollar menu-icon"></i> </a>
+            </li>
+        @endcan
+        {{-- schools --}}
+        @can('school-create')
+            <li class="nav-item">
+                <a href="{{ url('schools') }}" class="nav-link"> <span
+                        class="menu-title">{{ __('Manage') }} {{ __('Schools') }} {{ __('') }} </span> <i
+                        class="fa fa-building-o menu-icon"></i> </a>
+            </li>
+        @endcan
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
 
 
         <!-- {{-- parents --}}

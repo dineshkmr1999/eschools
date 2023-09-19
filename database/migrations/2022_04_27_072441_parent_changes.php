@@ -30,6 +30,7 @@ return new class extends Migration
             $table->integer('mother_id')->nullable()->after('father_id');
             $table->integer('guardian_id')->nullable()->after('mother_id');
 
+
             $table->dropColumn('father_name');
             $table->dropColumn('father_phone');
             $table->dropColumn('father_occupation');
@@ -38,6 +39,7 @@ return new class extends Migration
             $table->dropColumn('mother_occupation');
             $table->dropColumn('mother_image');
             $table->dropColumn('parent_id');
+            
         });
 
         Schema::table('parents', function (Blueprint $table) {

@@ -420,6 +420,28 @@
     "reason":"Reason",
     "entry_time":"Entry Time",
     "student-lateentry-create":"Create Student Late Entry",
+<<<<<<< HEAD
     "download_sample_excel_file":"Download Sample",
     "first_download_dummy_file_and_convert_to_csv_file_then_upload_it":"Begin by downloading a sample file, then convert it to CSV format before proceeding with the upload"
+=======
+    "school_name":"School Name",
+    "principal_name":"Principal Name",
+    "founded_date":"Founded On",
+    "affiliation": "Affiliation",
+    "description":"Description",
+    "admin_name":"Admin Name",
+    "admin_email":"Admin Email",
+    "admin_password":"Admin Password",
+    "schools":"Schools",
+    "website":"Website",
+    "admin_first_name" :"First Name",
+    "admin_last_name" :"Last Name",
+    "admin_password":"Password",
+    "gender" :"Gender",
+    "admin_email":"Email",
+    "admin_phone_number":"Mobile",
+    "admin_dob":"DOB",
+    "admin_current_address":"Current Address",
+    "permanent_address":"Permanent Address"
+>>>>>>> 221755b80e4695058c19fa4913cfe5361d6241df
 }

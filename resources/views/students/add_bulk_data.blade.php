@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.super_master')
 
 @section('title')
 {{ __('add_bulk_data') }}

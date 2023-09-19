@@ -58,6 +58,7 @@ class StudentLateEntryController extends Controller
             $StudentLateEntry->reason =  $request->reason;
             $StudentLateEntry->entry_time = $request->entry_time;
             $StudentLateEntry->student_id = $request->student_id;
+            $StudentLateEntry->school_id = Auth::user()->school_id;
             $StudentLateEntry->save();
             $response = array(
                 'error' => false,
@@ -101,7 +102,7 @@ class StudentLateEntryController extends Controller
         if (isset($_GET['order']))
         $order = $_GET['order'];
         
-        $sql = StudentLateEntry::where('id','!=',0);
+        $sql = StudentLateEntry::where('id','!=',0)->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('id', 'LIKE', "%$search%")

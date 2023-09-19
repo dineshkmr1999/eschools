@@ -80,6 +80,7 @@ class AdmissionEnquiryController extends Controller
             $AdmissionEnquiry->previous_school = $request->previous_school;
             $AdmissionEnquiry->gender = $request->gender;
             $AdmissionEnquiry->parent_name = $request->parent_name;
+            $AdmissionEnquiry->school_id = Auth::user()->school_id;
             $AdmissionEnquiry->save();
             $response = array(
                 'error' => false,
@@ -124,7 +125,7 @@ class AdmissionEnquiryController extends Controller
         if (isset($_GET['order']))
         $order = $_GET['order'];
         
-        $sql = AdmissionEnquiry::with('enquiryMode');
+        $sql = AdmissionEnquiry::with('enquiryMode')->where('school_id', Auth::user()->school_id);
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $sql->where('mode_name', 'LIKE', "%$search%");
