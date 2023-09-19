@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use PDO;
 use Exception;
 use Throwable;
@@ -84,7 +85,23 @@ class StudentController extends Controller
 
         return view('students.add_bulk_data', compact('class_section'));
     }
+    public function createBulkDataSuperAdmin()
+    {
+        if (!Auth::user()->can('student-create')) {
+            $response = array(
+                'message' => trans('no_permission_message')
+            );
+            return redirect(route('home'))->withErrors($response);
+        }
+        $class_section = ClassSection::with('class', 'section')->get();
+        // $category = Category::where('status', 1)->get();
+        // $data = getSettings('session_year');
+        // $session_year = SessionYear::select('name')->where('id', $data['session_year'])->pluck('name')->first();
+        // $get_student = Students::select('id')->latest('id')->pluck('id')->first();
+        // $admission_no = $session_year . ($get_student + 1);
 
+        return view('students.add_bulk_data_super_admin', compact('class_section'));
+    }
     public function storeBulkData(Request $request)
     {
         if (!Auth::user()->can('student-create') || !Auth::user()->can('student-edit')) {
@@ -112,6 +129,7 @@ class StudentController extends Controller
                 'message' => trans('data_store_successfully')
             ];
         } catch (Exception $e) {
+            Log::info($e->getMessage());
             $response = array(
                 'error' => true,
                 'message' => trans('error_occurred'),

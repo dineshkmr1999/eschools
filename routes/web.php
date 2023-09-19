@@ -44,6 +44,7 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\EnquiryModeController;
 use App\Http\Controllers\AdmissionEnquiryController;
 use App\Http\Controllers\StudentLateEntryController;
+use App\Http\Controllers\HumanResourceController;
 use App\Models\AdmissionEnquireMode;
 
 /*
@@ -118,7 +119,9 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         Route::post('students/assign-class', [StudentController::class, 'assignClass_store'])->name('students.assign-class.store');
         Route::get('students/new-student-list', [StudentController::class, 'newStudentList'])->name('students.new-student-list');
         Route::get('students/create_bulk', [StudentController::class, 'createBulkData'])->name('students.create-bulk-data');
-        // Route::post('students/store_bulk', [StudentController::class, 'storeBulkData'])->name('students.store-bulk-data');
+        Route::get('students/create_bulk_super_admin', [StudentController::class, 'createBulkDataSuperAdmin'])->name('students.create-bulk-data-super-admin');
+        
+        Route::post('students/store_bulk', [StudentController::class, 'storeBulkData'])->name('students.store-bulk-data');
         Route::resource('students', StudentController::class);
 
         //student generate roll number
@@ -223,10 +226,12 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         Route::get('promote-student-list', [StudentSessionController::class, 'show']);
 
         Route::get('resetpassword', [HomeController::class, 'resetpassword'])->name('resetpassword');
+        Route::get('resetpassword-super-admin', [HomeController::class, 'resetpasswordSuperAdmin'])->name('resetpassword-super-admin');
         Route::get('checkPassword', [HomeController::class, 'checkPassword']);
         Route::post('changePassword', [HomeController::class, 'changePassword']);
 
         Route::get('edit-profile', [HomeController::class, 'editProfile'])->name('edit-profile');
+        Route::get('edit-profile-super-admin', [HomeController::class, 'editProfileSuperAdmin'])->name('edit-profile-super-admin');
         Route::post('update-profile', [HomeController::class, 'updateProfile'])->name('update-profile');
 
         Route::resource('language', LanguageController::class);
@@ -271,11 +276,17 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
             return view('superadmin.dashboard');
         })->middleware('head');
         
-       // Route::get('feestype/create_bulk', [FeesTypeController::class, 'createBulkData'])->name('fees-type.create-bulk-data');
+       Route::get('feestype/create_bulk', [FeesTypeController::class, 'createBulkData'])->name('fees-type.create-bulk-data');
+       Route::get('feestype/create_bulk_super_admin', [FeesTypeController::class, 'createBulkDataSuperAdmin'])->name('fees-type.create-fees-bulk-data-super-admin');
+       
         Route::post('feestype/store-bulk', [FeesTypeController::class, 'import'])->name('fees-type.store-bulk-data');
         Route::get('teacher/create-bulk', function () {
             return view('teacher.teacher_bulk_data');
         })->name('teacher.create-bulk-data');
+
+        Route::get('teacher/create-bulk-data-super-admin', function () {
+            return view('teacher.teacher_bulk_data_super_admin');
+        })->name('teacher.create-bulk-data-super-admin');
         
            Route::post('teacher/store-bulk', [TeacherController::class, 'import'])->name('teacher.store-bulk-data');   
         
@@ -306,6 +317,9 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         Route::resource('enquirymode', EnquiryModeController::class);
         Route::get('enquirymode-list', [EnquiryModeController::class, 'show']);
 
+        //dashboard data
+        Route::get('dashboard-data', [HomeController::class, 'DashBoardData']);
+
         //Admission Enquiry
         Route::resource('admissionenquiry', AdmissionEnquiryController::class);
         Route::get('admissionenquiry-list', [AdmissionEnquiryController::class, 'show']);
@@ -320,6 +334,18 @@ Route::group(['middleware' => ['Role', 'auth']], function () {
         Route::get('system-update', [SystemUpdateController::class, 'index'])->name('system-update.index');
         Route::post('system-update', [SystemUpdateController::class, 'update'])->name('system-update.update');
     });
+
+    Route::group(['middleware' => 'HumanResource'], function () {
+
+        // Route::get('human-resource', [HumanResourceController::class, 'HrDashboard']);
+        Route::get('/human-resource', function () {
+            return view('human_resource.dashboard');
+        })->middleware('HumanResource');
+
+        Route::get('teacher-management', [HumanResourceController::class, 'TeacherData']);
+
+    });
+
 });
 
 // webhooks

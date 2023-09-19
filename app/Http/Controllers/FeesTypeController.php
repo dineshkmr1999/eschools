@@ -53,6 +53,18 @@ class FeesTypeController extends Controller
         return view('fees.fees_bulkdata');
     }
 
+    public function createBulkDataSuperAdmin(Request $request){
+        if (!Auth::user()->can('student-create')) {
+            $response = array(
+                'message' => trans('no_permission_message')
+            );
+            
+            return redirect(route('home'))->withErrors($response);
+        }
+       // $class_section = ClassSection::with('class', 'section')->get();
+        return view('fees.fees_bulk_data_super_admin');
+    }
+
     public function index()
     {
         if (!Auth::user()->can('fees-type')) {

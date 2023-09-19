@@ -49,6 +49,11 @@ class HomeController extends Controller
         return view('settings.reset_password');
     }
 
+    public function resetpasswordSuperAdmin()
+    {
+        return view('settings.reset_password_super_admin');
+    }
+
     public function checkPassword(Request $request)
     {
         $old_password = $request->old_password;
@@ -160,7 +165,11 @@ class HomeController extends Controller
         $admin_data = Auth::user();
         return view('settings.update_profile', compact('admin_data'));
     }
-
+    public function editProfileSuperAdmin()
+    {
+        $admin_data = Auth::user();
+        return view('settings.update_profile_super_admin', compact('admin_data'));
+    }
     public function updateProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -222,5 +231,21 @@ class HomeController extends Controller
             );
         }
         return response()->json($response);
+    }
+
+    public function DashBoardData() {
+        $teacherCount = Teacher::count();
+        $studentCount = Students::count();
+        $parentCount = Parents::count();
+
+        $data = [
+            'teacher_count' => $teacherCount,
+            'student_count' => $studentCount,
+            'parent_count' => $parentCount,
+        ];
+
+        // Return the data as JSON response
+        return response()->json($data);
+
     }
 }

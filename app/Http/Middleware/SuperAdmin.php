@@ -19,7 +19,6 @@ class SuperAdmin
        
              if (!Auth::user()->role == '1') 
         {
-            
               return redirect('/')->with('message','access Denied');
         }
             return $next($request);

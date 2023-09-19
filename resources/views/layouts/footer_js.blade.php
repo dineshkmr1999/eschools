@@ -39,6 +39,7 @@
 <script src="{{ asset('/assets/ckeditor-4/ckeditor.js') }}"></script>
 <script src="{{ asset('/assets/ckeditor-4/adapters/jquery.js') }}" async ></script>
 
+
 @if ($errors->any())
     @foreach ($errors->all() as $error)
         <script type='text/javascript'>

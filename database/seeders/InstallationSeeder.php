@@ -17,7 +17,8 @@ class InstallationSeeder extends Seeder
      *
      * @return void
      */
-    public function run() {
+    public function run()
+    {
 
         //Add Permissions
         $permissions = [
@@ -177,7 +178,7 @@ class InstallationSeeder extends Seeder
             ['id' => 123, 'name' => 'manage-enquiry-mode-create'],
             ['id' => 124, 'name' => 'manage-enquiry-mode-edit'],
             ['id' => 125, 'name' => 'manage-enquiry-mode-delete'],
-            
+
             ['id' => 126, 'name' => 'admission-enquiry-list'],
             ['id' => 127, 'name' => 'admission-enquiry-create'],
             ['id' => 128, 'name' => 'admission-enquiry-edit'],
@@ -187,6 +188,14 @@ class InstallationSeeder extends Seeder
             ['id' => 131, 'name' => 'student-lateentry-create'],
             ['id' => 132, 'name' => 'student-lateentry-edit'],
             ['id' => 133, 'name' => 'student-lateentry-delete'],
+
+            ['id' => 134, 'name' => 'Hr-list'],
+            ['id' => 135, 'name' => 'Hr-create'],
+            ['id' => 136, 'name' => 'Hr-edit'],
+            ['id' => 137, 'name' => 'Hr-delete'],
+
+            ['id' => 138, 'name' => 'teacher-data'],
+
         ];
         foreach ($permissions as $permission) {
             Permission::UpdateOrCreate(['id' => $permission['id']], $permission);
@@ -317,7 +326,7 @@ class InstallationSeeder extends Seeder
             'fees-classes',
             'fees-paid',
             'fees-config',
-            
+
             'manage-expenses',
 
             'manage-enquiry-mode-list',
@@ -334,9 +343,15 @@ class InstallationSeeder extends Seeder
             'student-lateentry-create',
             'student-lateentry-edit',
             'student-lateentry-delete',
+
+            'Hr-list',
+            'Hr-create',
+            'Hr-edit',
+            'Hr-delete',
+
         ];
         $role->syncPermissions($superadmin_permission_list);
-       
+
 
         //Add Teacher Role
         $teacher_role = Role::updateOrCreate(['name' => 'Teacher']);
@@ -382,10 +397,31 @@ class InstallationSeeder extends Seeder
         Role::updateOrCreate(['name' => 'Parent']);
         Role::updateOrCreate(['name' => 'Student']);
 
+        //head super admin must be have a ID of 5, don't change the order here
         $head = Role::updateOrCreate(['name' => 'Head']);
         $head->syncPermissions($superadmin_permission_list);
+
+        $HR = Role::updateOrCreate(['name' => 'Human Resource Management']);
+
+        $HR_permission_list = [
+
+            'teacher-list',
+            'teacher-create',
+            'teacher-edit',
+            'teacher-delete',
+
+            'holiday-list',
+            'holiday-create',
+            'holiday-edit',
+            'holiday-delete',
+
+            'teacher-data'
+        ];
+
+        $HR->syncPermissions($HR_permission_list);
+
         //Change system version here
-        Settings::updateOrCreate(['type' => 'system_version'],['message'=>'1.0.6']);
+        Settings::updateOrCreate(['type' => 'system_version'], ['message' => '1.0.6']);
 
         //clear cache
         Artisan::call('view:clear');

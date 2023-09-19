@@ -1,24 +1,35 @@
-@extends('layouts.master')
+@extends('layouts.super_master')
 
 @section('title')
-{{ __('add bulk teachers data') }}
+{{ __('add_bulk_data') }}
 @endsection
 
 @section('content')
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            {{ __('add') . ' ' . __('teachers') }}
+            {{ __('manage') . ' ' . __('students') }}
         </h3>
     </div>
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <form class="pt-3"  enctype="multipart/form-data" action="{{ route('teacher.store-bulk-data')  }}" method="POST">
+                    <form class="pt-3" id="create-form-bulk-data" enctype="multipart/form-data" action="{{ route('students.store-bulk-data') }}" method="POST">
                         @csrf
                         <div class="row">
-                            
+                            <div class="form-group col-sm-12 col-md-4">
+                                <label>{{ __('class') . ' ' . __('section') }} <span class="text-danger">*</span></label>
+                                <select name="class_section_id" id="class_section" class="form-control select2">
+                                    <option value="">{{ __('select') . ' ' . __('class') . ' ' . __('section') }}
+                                    </option>
+                                    @foreach ($class_section as $section)
+                                    <option value="{{ $section->id }}">{{ $section->class->name }} -
+                                        {{ $section->section->name }} {{ $section->class->medium->name }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
                             <div class="form-group col-sm-12 col-md-4">
                                 <label>{{ __('file_upload') }} <span class="text-danger">*</span></label>
                                 <input type="file" name="file" class="file-upload-default" />
@@ -30,13 +41,13 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-12 col-xs-12">
-                                <input class="btn btn-theme " type="submit" value="Submit" name="submit" id="submit_bulk_file">
+                                <input class="btn btn-theme submit_bulk_file" type="submit" value="Submit" name="submit" id="submit_bulk_file">
                             </div>
                         </div>
                     </form>
                     <hr>
                     <div class="form-group col-12 col-md-3 mt-5">
-                        <a class="btn btn-theme form-control" href="{{Storage::url('public/teacher_sample.xlsx')}}" download>
+                        <a class="btn btn-theme form-control" href="{{Storage::url('public/dummy_file.xlsx')}}" download>
                             <strong>{{__('download_sample_excel_file')}}</strong>
                         </a>
                     </div>

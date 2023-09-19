@@ -30,7 +30,7 @@
     <div class="container-fluid page-body-wrapper">
 
         {{-- siderbar --}}
-        @include('layouts.super_admin')
+        @include('layouts.human_resource')
 
         <div class="main-panel">
 

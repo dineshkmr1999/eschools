@@ -190,3 +190,9 @@ Route::post('forgot-password', [ApiController::class, 'forgotPassword']);
 Route::group(['middleware' => ['auth:sanctum',]], function () {
     Route::post('change-password', [ApiController::class, 'changePassword']);
 });
+
+
+Route::get('/cache-config', function () {
+    \Artisan::call('config:cache');
+    return 'Configuration cached successfully.';
+});

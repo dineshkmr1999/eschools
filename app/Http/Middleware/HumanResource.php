@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HeadSuperAdmin
+class HumanResource
 {
     /**
      * Handle an incoming request.
@@ -19,7 +19,7 @@ class HeadSuperAdmin
     {
         if (Auth::check()) {
             $user = Auth::user();
-            if ($user->hasRole(5)) {
+            if ($user->hasRole(6)) {
                 return $next($request);
             }
         }

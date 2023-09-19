@@ -273,7 +273,6 @@
     "exam_not_completed_yet": "Exam not completed yet",
     "marks_are_not_submitted": "Marks are not submitted",
     "download_dummy_file": "Download Dummy File",
-    "first_download_dummy_file_and_convert_to_csv_file_then_upload_it": "First download dummy file and convert to .csv file then upload it.",
     "grades_data_does_not_exists": "Grades data does not exists",
     "subject_already_exists": "Subject already exists",
     "click_here_to_remove_class_teacher": "Click here to remove class teacher",
@@ -420,5 +419,7 @@
     "student_late_entry":"Student Late Entry",
     "reason":"Reason",
     "entry_time":"Entry Time",
-    "student-lateentry-create":"Create Student Late Entry"
+    "student-lateentry-create":"Create Student Late Entry",
+    "download_sample_excel_file":"Download Sample",
+    "first_download_dummy_file_and_convert_to_csv_file_then_upload_it":"Begin by downloading a sample file, then convert it to CSV format before proceeding with the upload"
 }

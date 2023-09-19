@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use Illuminate\Support\Facades\Log;
 use Throwable;
 use App\Models\User;
 use App\Models\Parents;
@@ -35,6 +36,7 @@ class StudentsImport implements ToCollection, WithHeadingRow
     }
     public function collection(Collection $rows)
     {
+       
         $validator = Validator::make($rows->toArray(), [
             '*.first_name' => 'required',
             '*.last_name' => 'required',
@@ -66,6 +68,7 @@ class StudentsImport implements ToCollection, WithHeadingRow
         $studentRole = Role::where('name', 'Student')->first();
 
         foreach ($rows as $row) {
+          
             $validator = Validator::make($row->toArray(), [
                 'father_email' => 'required|email:dns',
                 'mother_email' => 'required|email:dns'
@@ -291,9 +294,9 @@ class StudentsImport implements ToCollection, WithHeadingRow
                 'child_grnumber' => ' ' . $admission_no,
                 'child_password' => ' ' . $child_plaintext_password,
             ];
-            Mail::send('students.email', $father_data, function ($message) use ($father_data) {
-                $message->to($father_data['email'])->subject($father_data['subject']);
-            });
+            // Mail::send('students.email', $father_data, function ($message) use ($father_data) {
+            //     $message->to($father_data['email'])->subject($father_data['subject']);
+            // });
 
             $mother_data = [
                 'subject' => 'Welcome to ' . $school_name['school_name'],
@@ -305,9 +308,9 @@ class StudentsImport implements ToCollection, WithHeadingRow
                 'child_grnumber' => ' ' . $admission_no,
                 'child_password' => ' ' . $child_plaintext_password,
             ];
-            Mail::send('students.email', $mother_data, function ($message) use ($mother_data) {
-                $message->to($mother_data['email'])->subject($mother_data['subject']);
-            });
+            // Mail::send('students.email', $mother_data, function ($message) use ($mother_data) {
+            //     $message->to($mother_data['email'])->subject($mother_data['subject']);
+            // });
         }
     }
 }

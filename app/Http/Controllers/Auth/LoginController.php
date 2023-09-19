@@ -32,12 +32,11 @@ class LoginController extends Controller
 
    protected function authenticated(Request $request, $user)
    {
-     log::info(Auth::user());
-    
     if(Auth::user()->hasRole(5)){
         return redirect('/super-admin')->with('message','Welcome SuperAdmin');
-    }
-    else{
+    }else if(Auth::user()->hasRole(6)){
+        return redirect('/human-resource')->with('message','Welcome SuperAdmin');
+    }else{
         $redirectTo = RouteServiceProvider::HOME;
     }
    }

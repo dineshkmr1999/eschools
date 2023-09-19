@@ -45,6 +45,19 @@ class AddSuperAdminSeeder extends Seeder
 
         $user->assignRole([$head_role->id]);
 
+          //Add Human Resource
+          $hr_role = Role::where('name', 'Human Resource Management')->first();
+          $user = User::updateOrCreate(['id' => 6], [
+              'first_name' => 'human',
+              'last_name' => 'resource',
+              'email' => 'humanresource@gmail.com',
+              'password' => Hash::make('humanresource'),
+              'gender' => 'Male',
+              'image' => 'logo.svg',
+              'mobile' => ""
+          ]);
+  
+          $user->assignRole([$hr_role->id]);
 
         SessionYear::updateOrCreate(['id' => 1],[
             'name' => '2022-23',
